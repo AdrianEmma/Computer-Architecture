@@ -1,0 +1,215 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA/18.1
+Eadder_combinatorial
+Z0 w1505153164
+Z1 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z2 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z3 dZ:/My Documents/CompArch Projects/VHDL Testbench Lab
+Z4 8Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_combinatorial.vhd
+Z5 FZ:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_combinatorial.vhd
+l0
+L14
+VI65zCG]=M830NIg^GYcg_3
+!s100 Pha?lJA;Z<9N;C]Jz0XHF1
+Z6 OV;C;10.5b;63
+32
+Z7 !s110 1664200109
+!i10b 1
+Z8 !s108 1664200109.000000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_combinatorial.vhd|
+Z10 !s107 Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_combinatorial.vhd|
+!i113 1
+Z11 o-work work -2002 -explicit
+Z12 tExplicit 1 CvgOpt 0
+Aripple_carry
+Z13 DEx4 work 10 full_adder 0 22 [X`[ROAfSboG`?0Jnb>T]0
+R1
+R2
+Z14 DEx4 work 19 adder_combinatorial 0 22 I65zCG]=M830NIg^GYcg_3
+l29
+L25
+VG5M:UP2?aolidlSo?3NNL2
+!s100 6LzoScR^>K77ZGZc@;__c2
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Eadder_sequential
+R0
+Z15 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+R1
+R2
+R3
+Z16 8Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_sequential.vhd
+Z17 FZ:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_sequential.vhd
+l0
+L15
+VgL:c4IfL>H^Qz?h1zZ82c3
+!s100 <[B`Y?5bVNBC]So@z[nAW2
+R6
+32
+Z18 !s110 1664200110
+!i10b 1
+Z19 !s108 1664200110.000000
+Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_sequential.vhd|
+Z21 !s107 Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/adder_sequential.vhd|
+!i113 1
+R11
+R12
+Artl
+R13
+R15
+R1
+R2
+Z22 DEx4 work 16 adder_sequential 0 22 gL:c4IfL>H^Qz?h1zZ82c3
+l58
+L30
+VVzDXWFb`5eRkfGI3IE]@A2
+!s100 elo8QC3hJLWhWL3?df^Hn0
+R6
+32
+R18
+!i10b 1
+R19
+R20
+R21
+!i113 1
+R11
+R12
+Efull_adder
+R0
+R1
+R2
+R3
+Z23 8Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/full_adder.vhd
+Z24 FZ:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/full_adder.vhd
+l0
+L14
+V[X`[ROAfSboG`?0Jnb>T]0
+!s100 g2N3@Jko[H9l<CQ9d3AKd1
+R6
+32
+Z25 !s110 1664200108
+!i10b 1
+Z26 !s108 1664200106.000000
+Z27 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/full_adder.vhd|
+Z28 !s107 Z:/My Documents/CompArch Projects/VHDL Testbench Lab/vhdl/full_adder.vhd|
+!i113 1
+R11
+R12
+Artl
+R1
+R2
+R13
+l25
+L24
+V3Mj6kY=4NVd3?_4nZFY4C2
+!s100 bOI^YdjMcWok`9F_JW6Ta1
+R6
+32
+R25
+!i10b 1
+R26
+R27
+R28
+!i113 1
+R11
+R12
+Etb_adder_combinatorial
+Z29 w1664199953
+R15
+R1
+R2
+R3
+Z30 8Z:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_combinatorial.vhd
+Z31 FZ:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_combinatorial.vhd
+l0
+L5
+V6kZz@6onmk?h?T>j?o3OD3
+!s100 <6hJ@iUeI<1iPaG:JO6e<0
+R6
+32
+Z32 !s110 1664200115
+!i10b 1
+Z33 !s108 1664200112.000000
+Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_combinatorial.vhd|
+Z35 !s107 Z:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_combinatorial.vhd|
+!i113 1
+R11
+R12
+Atest
+R14
+R15
+R1
+R2
+Z36 DEx4 work 22 tb_adder_combinatorial 0 22 6kZz@6onmk?h?T>j?o3OD3
+l17
+L8
+VDaH6hG4dcU1l]NBP;zcgJ1
+!s100 ^?;0>C72=Q=zbWL8S7gjn1
+R6
+32
+R32
+!i10b 1
+R33
+R34
+R35
+!i113 1
+R11
+R12
+Etb_adder_sequential
+Z37 w1664199947
+R15
+R1
+R2
+R3
+Z38 8Z:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_sequential.vhd
+Z39 FZ:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_sequential.vhd
+l0
+L5
+VXcJ5nGJOBlQLT=kD>5CHL0
+!s100 Jm1P<G9<bW2Wj7EYA0IiQ3
+R6
+32
+R18
+!i10b 1
+R19
+Z40 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_sequential.vhd|
+Z41 !s107 Z:/My Documents/CompArch Projects/VHDL Testbench Lab/testbench/tb_adder_sequential.vhd|
+!i113 1
+R11
+R12
+Atest
+R22
+R15
+R1
+R2
+DEx4 work 19 tb_adder_sequential 0 22 XcJ5nGJOBlQLT=kD>5CHL0
+l25
+L8
+VAVL2Ecg9N5^^<djBjNoz^3
+!s100 Db]T];o>T;ld>]A8[^3_b3
+R6
+32
+!s110 1664200111
+!i10b 1
+R19
+R40
+R41
+!i113 1
+R11
+R12
