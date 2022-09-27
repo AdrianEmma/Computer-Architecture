@@ -40,24 +40,36 @@ begin
         op <= "00";
         wait for 20 ns;                 -- wait for circuit to settle
         -- insert an ASSERT statement here
+        assert r(3 downto 0) = "0001"
+            report "Incorrect NOR behaviour"
+            severity warning;
 
         -- A AND B
         -- assign the correct value to op to test A AND B
         op <= "01";
         wait for 20 ns;                 -- wait for circuit to settle
         -- insert an ASSERT statement here
+        assert r(3 downto 0) = "1000"
+            report "Incorrect AND behaviour"
+            severity warning;
 
         -- A OR B
         -- assign the correct value to op to test A OR B
         op <= "10";
         wait for 20 ns;                 -- wait for circuit to settle
         -- insert an ASSERT statement here
+        assert r(3 downto 0) = "1110" 
+            report "Incorrect OR behaviour"
+        	severity warning;
 
         -- A XNOR B
         -- assign the correct value to op to test A XNOR B
         op <= "11";
         wait for 20 ns;                 -- wait for circuit to settle
         -- insert an ASSERT statement here
+        assert r(3 downto 0) = "1001"
+            report "Incorrect XNOR behaviour"
+            severity warning;
         wait;                           -- wait forever
     end process;
 

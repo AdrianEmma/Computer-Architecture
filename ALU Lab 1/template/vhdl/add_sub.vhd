@@ -15,4 +15,9 @@ end add_sub;
 
 architecture synth of add_sub is
 begin
+    process (a, b, sub_mode)
+    begin
+        sop <= B xor std_logic_vector(31 downto 0 => sub_mode)
+        
+    end process;
 end synth;

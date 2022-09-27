@@ -128,23 +128,23 @@ R23
 R12
 R13
 Elogic_unit
-Z24 w1664203997
+Z24 w1664269689
 R2
 R3
-Z25 dZ:/My Documents/CompArch Projects/ALU Lab 1/template/modelsim
-Z26 8Z:\My Documents\CompArch Projects\ALU Lab 1\template\vhdl\logic_unit.vhd
-Z27 FZ:\My Documents\CompArch Projects\ALU Lab 1\template\vhdl\logic_unit.vhd
+Z25 dY:/Labs/ALU Lab 1/template/modelsim
+Z26 8Y:/Labs/ALU Lab 1/template/vhdl/logic_unit.vhd
+Z27 FY:/Labs/ALU Lab 1/template/vhdl/logic_unit.vhd
 l0
 L4
 VfUEL39DQfcR_XLk:Hoe<f3
 !s100 UJioXKUg8XUULGTSe2WE20
 Z28 OV;C;10.5b;63
 32
-Z29 !s110 1664204003
+Z29 !s110 1664269717
 !i10b 1
-Z30 !s108 1664204000.000000
-Z31 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:\My Documents\CompArch Projects\ALU Lab 1\template\vhdl\logic_unit.vhd|
-Z32 !s107 Z:\My Documents\CompArch Projects\ALU Lab 1\template\vhdl\logic_unit.vhd|
+Z30 !s108 1664269715.000000
+Z31 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/template/vhdl/logic_unit.vhd|
+Z32 !s107 Y:/Labs/ALU Lab 1/template/vhdl/logic_unit.vhd|
 !i113 1
 R12
 Z33 tExplicit 1 CvgOpt 0
@@ -154,8 +154,8 @@ R3
 DEx4 work 10 logic_unit 0 22 fUEL39DQfcR_XLk:Hoe<f3
 l14
 L13
-VBk0:k6D0iBU0<o@P]_<[03
-!s100 cfdDWEVhHFGB_zj^FJ6kT1
+VMaGDCWAP?XQ:Ch4@T=f^H3
+!s100 XCYl>_gZ0QIK<GJ4c8T:31
 R28
 32
 R29
@@ -210,20 +210,20 @@ Z38 w1664199542
 R1
 R2
 R3
-R25
-Z39 8Z:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd
-Z40 FZ:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd
+Z39 dZ:/My Documents/CompArch Projects/ALU Lab 1/template/modelsim
+Z40 8Z:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd
+Z41 FZ:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd
 l0
 L5
 VoYz=ZP:Rg2U9Eb=ZGo>940
 !s100 C4@E7NN0:UB89P^MW405S0
 R28
 32
-Z41 !s110 1664203479
+Z42 !s110 1664203479
 !i10b 1
-Z42 !s108 1664203477.000000
-Z43 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd|
-Z44 !s107 Z:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd|
+Z43 !s108 1664203477.000000
+Z44 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd|
+Z45 !s107 Z:/My Documents/CompArch Projects/ALU Lab 1/template/vhdl/shift_unit.vhd|
 !i113 1
 R12
 R33
@@ -238,11 +238,11 @@ V@nFV=K3:Z_d6IjB;3@zU;3
 !s100 [321mfnCdb31EL<HVmGPL3
 R28
 32
-R41
-!i10b 1
 R42
+!i10b 1
 R43
 R44
+R45
 !i113 1
 R12
 R33
@@ -252,8 +252,8 @@ R1
 R2
 R3
 R4
-Z45 8C:/Users/HP PC/Downloads/alu-2/testbench/tb_ALU.vhd
-Z46 FC:/Users/HP PC/Downloads/alu-2/testbench/tb_ALU.vhd
+Z46 8C:/Users/HP PC/Downloads/alu-2/testbench/tb_ALU.vhd
+Z47 FC:/Users/HP PC/Downloads/alu-2/testbench/tb_ALU.vhd
 l0
 L5
 Vn>BG8FNOTjd9j[=R@k4^@1
@@ -262,7 +262,7 @@ R7
 32
 R8
 !i10b 1
-Z47 !s108 1506954013.000000
+!s108 1506954013.000000
 Z48 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/HP PC/Downloads/alu-2/testbench/tb_ALU.vhd|
 Z49 !s107 C:/Users/HP PC/Downloads/alu-2/testbench/tb_ALU.vhd|
 !i113 1
@@ -289,41 +289,41 @@ R49
 R12
 R13
 Etb_logic_unit
-Z50 w1664204337
+Z50 w1664269443
 R2
 R3
 R25
-Z51 8Z:/My Documents/CompArch Projects/ALU Lab 1/template/testbench/tb_logic_unit.vhd
-Z52 FZ:/My Documents/CompArch Projects/ALU Lab 1/template/testbench/tb_logic_unit.vhd
+Z51 8Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd
+Z52 FY:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd
 l0
 L4
 V56]=9U8E_0^hnOWE8_kak0
 !s100 I0S6Z^F^OTJKf4O?Ic>222
 R28
 32
-Z53 !s110 1664204363
+!s110 1664269724
 !i10b 1
-Z54 !s108 1664204362.000000
-Z55 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/My Documents/CompArch Projects/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
-Z56 !s107 Z:/My Documents/CompArch Projects/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
+Z53 !s108 1664269721.000000
+Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
+Z55 !s107 Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
 !i113 1
 R12
 R33
 Atestbench
 R2
 R3
-DEx4 work 13 tb_logic_unit 0 22 56]=9U8E_0^hnOWE8_kak0
+Z56 DEx4 work 13 tb_logic_unit 0 22 56]=9U8E_0^hnOWE8_kak0
 l21
 L7
-V4Pc8K8mzLR=GZG8KfMBWL0
-!s100 8;SDnUB]D9cVb;6eYY>X83
+Z57 Va6BXoC0dROYCO^dahZJgV3
+Z58 !s100 FJfe@bbIDm[FTah7UQDNl1
 R28
 32
-R53
+!s110 1664269725
 !i10b 1
+R53
 R54
 R55
-R56
 !i113 1
 R12
 R33
