@@ -18,8 +18,8 @@ begin
     process(a_31, b_31, diff_31, carry, zero, op)
     begin
         case op(2 downto 0) is
-            when "001" => r <= (a_31 and (not b_31)) or ((a_31 xnor b_31) and (diff_31 or zero));
-            when "010" => r <= ((not a_31) and b_31) or ((a_31 xnor b_31) and (not(diff_31) and not(zero)));
+            when "001" => r <= (a_31 and (not b_31)) or (a_31 xnor b_31) and (diff_31 or zero);
+            when "010" => r <= ((not a_31) and b_31) or (a_31 xnor b_31) and (not(diff_31) or not(zero));
             when "011" => r <= not zero;
             when "100" => r <= zero;
             when "101" => r <= (not carry) or zero;

@@ -14,10 +14,23 @@ entity add_sub is
 end add_sub;
 
 architecture synth of add_sub is
+    signal sop : std_logic_vector(31 downto 0);
+    signal cin : std_logic;
+    signal inter : std_logic_vector(32 downto 0);
+    signal tmp : std_logic_vector(31 downto 0);
 begin
     process (a, b, sub_mode)
     begin
-        sop <= B xor std_logic_vector(31 downto 0 => sub_mode)
-        
+        sop <= b xor (31 downto 0 => sub_mode);
+        cin <= sub_mode;
+        tmp <= (31 downto 0 => '0');
+        inter <= std_logic_vector(unsigned('0' & sop) + unsigned(tmp & cin) + unsigned('0' & a));
+        if (inter(31 downto 0) = (31 downto 0 => '0')) then
+            zero <= '1';
+        else 
+            zero <= '0';
+        end if;
+        carry <= inter(32);
+        r <= inter(31 downto 0);
     end process;
 end synth;

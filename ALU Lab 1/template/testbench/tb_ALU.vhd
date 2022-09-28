@@ -74,7 +74,16 @@ begin
                             -- sub
                             when "001" => expected := std_logic_vector(signed(a) - signed(b));
                             -- comparator
-                            when "011" =>
+                            when "011" => 
+                                case op(2 downto 0) is
+                                    when "001" => if (signed(a) <= signed(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+                                    when "010" => if (signed(a) > signed(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+                                    when "011" => if (a = b) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+                                    when "100" => if (a /= b) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+                                    when "101" => if (unsigned(a) <= unsigned(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+                                    when "110" => if (unsigned(a) > unsigned(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+					when others => expected := (30 downto 0 => '0')&'1';
+				end case;
 ---------------------------------------MODIFY HERE-------------------------------------------------------------
 				ASSERT FALSE
 					REPORT "Replace this ASSERT with the code to test the comparator"

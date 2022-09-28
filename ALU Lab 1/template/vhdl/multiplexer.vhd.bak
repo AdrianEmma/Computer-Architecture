@@ -13,11 +13,12 @@ entity multiplexer is
 end multiplexer;
 
 architecture synth of multiplexer is
+    signal tmp : std_logic_vector(31 downto 0 => '0');
 begin
     with sel select
         o <= i0 when "00",
              i1 when "01",
              i2 when "10",
              i3 when "11",
-             i3 when others;
+             tmp when others;
 end synth;

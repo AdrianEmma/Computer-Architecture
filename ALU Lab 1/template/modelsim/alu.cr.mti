@@ -6,4 +6,47 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity tb_logic_unit
 -- Compiling architecture testbench of tb_logic_unit
 
+} {} {}} ../testbench/tb_ALU.vhd {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/ALU Lab 1/template/testbench/tb_ALU.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tb_ALU
+-- Compiling architecture bench of tb_ALU
+-- Loading entity ALU
+
+} {} {}} ../vhdl/shift_unit.vhd {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/ALU Lab 1/template/vhdl/shift_unit.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity shift_unit
+-- Compiling architecture synth of shift_unit
+
+} {} {}} ../vhdl/logic_unit.vhd {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/ALU Lab 1/template/vhdl/logic_unit.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity logic_unit
+-- Compiling architecture synth of logic_unit
+
+} {} {}} ../vhdl/ALU.vhd {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/ALU Lab 1/template/vhdl/ALU.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ALU
+-- Compiling architecture bdf_type of ALU
+
+} {} {}} ../vhdl/multiplexer.vhd {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/ALU Lab 1/template/vhdl/multiplexer.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity multiplexer
+-- Compiling architecture synth of multiplexer
+
 } {} {}}
