@@ -42,6 +42,9 @@ begin
 
         wait for 20 ns;                 -- wait for circuit to settle
         -- insert an ASSERT statement here
+        
+        -- report integer'image(unsigned(std_logic_vector)) to print values
+        
         assert r(4 downto 0) = "10110"
             report "Incorrect RESULT"
             severity warning;
