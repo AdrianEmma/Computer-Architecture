@@ -82,14 +82,15 @@ begin
                                     when "100" => if (a /= b) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
                                     when "101" => if (unsigned(a) <= unsigned(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
                                     when "110" => if (unsigned(a) > unsigned(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
-					when others => expected := (30 downto 0 => '0')&'1';
-				end case;
+					                when others => expected := (30 downto 0 => '0')&'1';
+				                end case;
 ---------------------------------------MODIFY HERE-------------------------------------------------------------
-				ASSERT FALSE
-					REPORT "Replace this ASSERT with the code to test the comparator"
-                			SEVERITY ERROR;
+				-- ASSERT FALSE
+					-- REPORT "Replace this ASSERT with the code to test the comparator"
+                			-- SEVERITY ERROR;
 ---------------------------------------END MODIFY--------------------------------------------------------------
                             -- "010" is not valid -> ignore
+				            when "010" => expected := s;
                             -- logical unit
                             when "100" | "101" =>
                                 case op(1 downto 0) is
@@ -125,9 +126,9 @@ begin
                         -- display only 1 error.
                         if ((s /= expected) and success) then
                             ASSERT FALSE
-                                REPORT "Incorrect Behavior"
-                                SEVERITY ERROR;
-                            success := FALSE;
+                                REPORT "Incorrect Behavior exp=" & integer'image(to_integer(unsigned(expected)))
+                                SEVERITY NOTE;
+                            success :=FALSE;
                             wait;       -- to stop after the first error.
                         end if;
                     end loop;           -- op_low_b
