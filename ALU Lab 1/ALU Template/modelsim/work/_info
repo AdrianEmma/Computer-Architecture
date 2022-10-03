@@ -89,7 +89,7 @@ R19
 R11
 R12
 Ecomparator
-Z21 w1664372364
+Z21 w1664832413
 R2
 R3
 R4
@@ -101,9 +101,9 @@ V3WXakLjKGIMC9fTC_zAJG3
 !s100 XTWoF>RX1>LcmLLBBo;N:0
 R7
 32
-!s110 1664795985
+!s110 1664832575
 !i10b 1
-Z24 !s108 1664795977.000000
+Z24 !s108 1664832570.000000
 Z25 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/ALU Template/vhdl/comparator.vhd|
 Z26 !s107 Y:/Labs/ALU Lab 1/ALU Template/vhdl/comparator.vhd|
 !i113 1
@@ -115,11 +115,11 @@ R3
 DEx4 work 10 comparator 0 22 3WXakLjKGIMC9fTC_zAJG3
 l17
 L16
-VXgJUKMoUmE_a<^^jG:[2Z1
-!s100 =WAO@Z2]Kk6;HBE68TV@f0
+VVoM4W^620V74zoRhCbj4g3
+!s100 VdN=@jBezLZhTgYX259UF0
 R7
 32
-!s110 1664795987
+!s110 1664832577
 !i10b 1
 R24
 R25
@@ -167,12 +167,12 @@ R33
 R11
 R12
 Emultiplexer
-R21
+Z34 w1664372364
 R2
 R3
 R4
-Z34 8Y:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd
-Z35 FY:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd
+Z35 8Y:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd
+Z36 FY:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd
 l0
 L4
 V4iH6`nZgBAHVia??bJk>G2
@@ -181,9 +181,9 @@ R7
 32
 !s110 1664795838
 !i10b 1
-Z36 !s108 1664795831.000000
-Z37 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd|
-Z38 !s107 Y:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd|
+Z37 !s108 1664795831.000000
+Z38 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd|
+Z39 !s107 Y:/Labs/ALU Lab 1/ALU Template/vhdl/multiplexer.vhd|
 !i113 1
 R11
 R12
@@ -199,31 +199,31 @@ R7
 32
 !s110 1664795839
 !i10b 1
-R36
 R37
 R38
+R39
 !i113 1
 R11
 R12
 Eshift_unit
-Z39 w1664796293
+Z40 w1664834454
 R1
 R2
 R3
 R4
-Z40 8Y:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd
-Z41 FY:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd
+Z41 8Y:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd
+Z42 FY:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd
 l0
 L5
 VoYz=ZP:Rg2U9Eb=ZGo>940
 !s100 C4@E7NN0:UB89P^MW405S0
 R7
 32
-!s110 1664796308
+!s110 1664834464
 !i10b 1
-Z42 !s108 1664796300.000000
-Z43 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd|
-Z44 !s107 Y:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd|
+Z43 !s108 1664834459.000000
+Z44 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd|
+Z45 !s107 Y:/Labs/ALU Lab 1/ALU Template/vhdl/shift_unit.vhd|
 !i113 1
 R11
 R12
@@ -231,39 +231,39 @@ Asynth
 R1
 R2
 R3
-DEx4 work 10 shift_unit 0 22 oYz=ZP:Rg2U9Eb=ZGo>940
+Z46 DEx4 work 10 shift_unit 0 22 oYz=ZP:Rg2U9Eb=ZGo>940
 l20
 L14
-V0ONkl:YLmkDSjk6TFncEo1
-!s100 Z[T3hU>k176;8S4HAQiYF1
+V]:4O3QX0Eo;QKA7:Jbj]A1
+!s100 `MlH[UGkYOBAYZnU_S9hb1
 R7
 32
-!s110 1664796310
+!s110 1664834465
 !i10b 1
-R42
 R43
 R44
+R45
 !i113 1
 R11
 R12
 Etb_add_sub
-Z45 w1664370497
+Z47 w1664370497
 R2
 R3
-Z46 dZ:/ALU Lab 1/template/modelsim
-Z47 8Z:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd
-Z48 FZ:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd
+Z48 dZ:/ALU Lab 1/template/modelsim
+Z49 8Z:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd
+Z50 FZ:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd
 l0
 L4
 VQjTEaLcN@@gJhM3Pf`NEn3
 !s100 ]N?D@mCJQm@IB=<S9;fo?0
 R7
 32
-Z49 !s110 1664370608
+Z51 !s110 1664370608
 !i10b 1
-Z50 !s108 1664370606.000000
-Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd|
-Z52 !s107 Z:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd|
+Z52 !s108 1664370606.000000
+Z53 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Z:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd|
+Z54 !s107 Z:/ALU Lab 1/template/testbench/tb_add_sub_unit.vhd|
 !i113 1
 R11
 R12
@@ -277,33 +277,33 @@ VEQHiKaY8D@YCQifDHGjW;1
 !s100 k`S=Ek^<RdUYBijK5PR0V1
 R7
 32
-R49
-!i10b 1
-R50
 R51
+!i10b 1
 R52
+R53
+R54
 !i113 1
 R11
 R12
 Etb_alu
-Z53 w1664800699
+Z55 w1664833169
 R1
 R2
 R3
 R4
-Z54 8Y:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd
-Z55 FY:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd
+Z56 8Y:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd
+Z57 FY:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd
 l0
 L5
 VPC4a2j0Z@h07SO>N@?M3X3
 !s100 h4gR^9UUSFUJBW2hl@TTO2
 R7
 32
-!s110 1664800711
+!s110 1664833186
 !i10b 1
-Z56 !s108 1664800705.000000
-Z57 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd|
-Z58 !s107 Y:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd|
+Z58 !s108 1664833180.000000
+Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd|
+Z60 !s107 Y:/Labs/ALU Lab 1/ALU Template/testbench/tb_ALU.vhd|
 !i113 1
 R11
 R12
@@ -312,28 +312,28 @@ R20
 R1
 R2
 R3
-Z59 DEx4 work 6 tb_alu 0 22 PC4a2j0Z@h07SO>N@?M3X3
+DEx4 work 6 tb_alu 0 22 PC4a2j0Z@h07SO>N@?M3X3
 l12
 L8
-VNCG;N3XnYCa8_a__iW:eX0
-!s100 Z=Q89K1ZPhaFF<Q;_z7mi2
+V]<BZ1NZ22<OkgL7G54W840
+!s100 1AonkKP4FjcJAeW]?DXFW3
 R7
 32
-!s110 1664800713
+!s110 1664833189
 !i10b 1
-R56
-R57
 R58
+R59
+R60
 !i113 1
 R11
 R12
 Etb_logic_unit
-Z60 w1664269443
+Z61 w1664269443
 R2
 R3
 R14
-Z61 8Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd
-Z62 FY:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd
+Z62 8Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd
+Z63 FY:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd
 l0
 L4
 V56]=9U8E_0^hnOWE8_kak0
@@ -342,9 +342,9 @@ R7
 32
 !s110 1664269724
 !i10b 1
-Z63 !s108 1664269721.000000
-Z64 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
-Z65 !s107 Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
+Z64 !s108 1664269721.000000
+Z65 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
+Z66 !s107 Y:/Labs/ALU Lab 1/template/testbench/tb_logic_unit.vhd|
 !i113 1
 R11
 R12
@@ -360,9 +360,9 @@ R7
 32
 !s110 1664269725
 !i10b 1
-R63
 R64
 R65
+R66
 !i113 1
 R11
 R12

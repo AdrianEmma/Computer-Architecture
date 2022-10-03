@@ -19,7 +19,7 @@ architecture synth of shift_unit is
     signal rot_right : std_logic_vector(31 downto 0);
 begin
     -- Shift-Left Logical --
-    process(a, b)
+    process(a, b, op)
         variable v : std_logic_vector(31 downto 0);
     begin
         v := a; -- Intermediate value
@@ -32,7 +32,7 @@ begin
     end process;
 
     -- Shift-Right Logical --
-    process(a, b)
+    process(a, b, op)
         variable v : std_logic_vector(31 downto 0);
     begin
         v := a; -- Intermediate value
@@ -45,7 +45,7 @@ begin
     end process;
 
     -- Shift-Right Arithmetic --
-    process(a, b)
+    process(a, b, op)
         variable v : std_logic_vector(31 downto 0);
     begin 
         v := a;
@@ -58,7 +58,7 @@ begin
     end process;
 
     -- Rotate Left --
-    process(a, b)
+    process(a, b, op)
         variable v : std_logic_vector(31 downto 0);
     begin
         v := a; -- Intermediate value
@@ -71,7 +71,7 @@ begin
     end process;
 
     -- Rotate Right --
-    process(a, b)
+    process(a, b, op)
         variable v : std_logic_vector(31 downto 0);
     begin
         v := a; -- Intermediate value
@@ -80,10 +80,10 @@ begin
                 v := v((2**i)-1 downto 0) & v(31 downto (2**i));
             end if;
         end loop;
-        rot_left <= v;
+        rot_right <= v;
     end process;
 
-    comp : process(a, b, op) 
+    comp : process(sh_left, sh_right, ash_right, rot_left, rot_right) 
     begin 
         case op is 
             when "010" => r <= sh_left;
@@ -91,7 +91,7 @@ begin
             when "111" => r <= ash_right;
             when "000" => r <= rot_left;
             when "001" => r <= rot_right;
-            when others => r <= ash_right;
+            when others => NULL;
         end case;
     end process;
 

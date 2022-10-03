@@ -78,11 +78,11 @@ begin
                                 case op(2 downto 0) is
                                     when "001" => if (signed(a) <= signed(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
                                     when "010" => if (signed(a) > signed(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
-                                    when "011" => if (a = b) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
-                                    when "100" => if (a /= b) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+                                    when "011" => if (a /= b) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
+                                    when "100" => if (a = b) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
                                     when "101" => if (unsigned(a) <= unsigned(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
                                     when "110" => if (unsigned(a) > unsigned(b)) then expected := (30 downto 0 => '0') & '1'; else expected := (30 downto 0 => '0') & '0'; end if;
-					                when others => expected := (30 downto 0 => '0')&'1';
+					                when others => expected := s;
 				                end case;
 ---------------------------------------MODIFY HERE-------------------------------------------------------------
 				-- ASSERT FALSE
@@ -90,7 +90,7 @@ begin
                 			-- SEVERITY ERROR;
 ---------------------------------------END MODIFY--------------------------------------------------------------
                             -- "010" is not valid -> ignore
-				            when "010" => expected := s;
+				            -- when "010" => expected := s;
                             -- logical unit
                             when "100" | "101" =>
                                 case op(1 downto 0) is
@@ -126,7 +126,7 @@ begin
                         -- display only 1 error.
                         if ((s /= expected) and success) then
                             ASSERT FALSE
-                                REPORT "Incorrect Behavior exp=" & integer'image(to_integer(unsigned(expected)))
+                                REPORT "Incorrect Behavior exp=" & integer'image(to_integer(signed(expected))) & " <> s=" & integer'image(to_integer(signed(s)))
                                 SEVERITY NOTE;
                             success :=FALSE;
                             wait;       -- to stop after the first error.

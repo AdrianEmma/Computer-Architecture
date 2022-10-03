@@ -24,7 +24,7 @@ begin
             when "100" => r <= zero;
             when "101" => r <= (not carry) or zero;
             when "110" => r <= carry and (not zero);
-            when others => r <= zero;
+            when others => NULL;
         end case;
     end process;
 end synth;
