@@ -16,20 +16,30 @@ entity register_file is
 end register_file;
 
 architecture synth of register_file is
-    type reg_type is array(0 to 31) of std_logic_vector(31 downto 0);
+    ---------------------INITIALIZE ALL 0----------------------------
+    type reg_type is array(0 to 31) of std_logic_vector(31 downto 0); 
+    -----------------------------------------------------------------
     signal reg : reg_type;
 begin
-    write_read : process(clk, aa, ab, aw, wren, wrdata) 
+    -- Synchronous write process
+    write : process(clk)
+        variable always_zero : std_logic_vector(31 downto 0);
+        variable regno : natural; -- Write Register Number 
     begin 
-        reg(0) <= std_logic_vector(31 downto 0 => '0')
-        if rising_edge(clk) then
-            if wren = '0' then
-                a <= reg(to_integer(unsigned(aa)));
-                b <= reg(to_integer(unsigned(ab)));
-            end if;    
-            if wren = '1' then
-                reg(to_integer(unsigned(aw))) <= wrdata;
+        always_zero := x"00000000"; -- Fix zero on register 0
+        reg(0) <= always_zero;
+        if rising_edge(clk) then -- Data ready to be saved
+            if wren = '1' then -- Write control signal
+                regno := to_integer(unsigned(aw));
+                if regno /= 0 then -- Can save data on all registers except 0
+                    reg(to_integer(unsigned(aw))) <= wrdata; -- Write data
+                end if;
             end if;
         end if;
-    end process write_read;
+    end process write;
+    
+    -- Asynchronous read operations
+    a <= reg(to_integer(unsigned(aa)));
+    b <= reg(to_integer(unsigned(ab)));
+     
 end synth;

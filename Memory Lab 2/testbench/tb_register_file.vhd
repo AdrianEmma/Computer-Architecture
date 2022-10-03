@@ -59,7 +59,7 @@ begin
         -- init
         wren   <= '0';
         aa     <= "00000";
-        ab     <= "00001";
+        ab     <= "00111";
         aw     <= "00000";
         wrdata <= (others => '0');
         wait for 5 ns;
@@ -68,20 +68,20 @@ begin
         wren <= '1';
         for i in 0 to 31 loop
             -- std_logic_vector(to_unsigned(number, bitwidth))
-            aw     <= std_logic_vector(to_unsigned(i, 5));
+            -- Update ports to be loaded on current clock cycle
+            aw     <= std_logic_vector(to_unsigned(i, 5)); 
             wrdata <= std_logic_vector(to_unsigned(i + 1, 32));
-            wait for CLK_PERIOD;
+            wait for CLK_PERIOD; -- Wait for next clock cycle
         end loop;
 
-        wait for CLK_PERIOD;
         -- read in the register file
         -- INSERT CODE THAT READS THE REGISTER FILE HERE
-        wren <= '0';
+        -- Value in register 0 should be 0
         assert to_integer(unsigned(a)) = 0
             report "Unexpected value in register AA"
             severity ERROR;
-
-        assert to_integer(unsigned(b)) = 2
+        -- Value in register 7 should be 8
+        assert to_integer(unsigned(b)) = 8
             report "Unexpected value in register AB"
             severity ERROR;
 
