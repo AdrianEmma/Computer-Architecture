@@ -55,6 +55,8 @@ begin
 
         -- read in the register file
         -- INSERT CODE THAT READS THE REGISTER FILE HERE
+        wren <= '0';
+        for 
 
         stop <= '1';
         wait;
