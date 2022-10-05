@@ -19,20 +19,17 @@ architecture synth of register_file is
     ---------------------INITIALIZE ALL 0----------------------------
     type reg_type is array(0 to 31) of std_logic_vector(31 downto 0); 
     -----------------------------------------------------------------
-    signal reg : reg_type;
+    signal reg : reg_type := (others => (others => '0'));
 begin
     -- Synchronous write process
     write : process(clk)
-        variable always_zero : std_logic_vector(31 downto 0);
         variable regno : natural; -- Write Register Number 
     begin 
-        always_zero := x"00000000"; -- Fix zero on register 0
-        reg(0) <= always_zero;
         if rising_edge(clk) then -- Data ready to be saved
             if wren = '1' then -- Write control signal
                 regno := to_integer(unsigned(aw));
                 if regno /= 0 then -- Can save data on all registers except 0
-                    reg(to_integer(unsigned(aw))) <= wrdata; -- Write data
+                    reg(regno) <= wrdata; -- Write data
                 end if;
             end if;
         end if;
