@@ -8,6 +8,23 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture testbench of tb_memories
 -- Loading entity FPGA4U_WITHOUT_CONTROLLER
 
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/LEDs.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/LEDs.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity LEDs
+-- Compiling architecture synth of LEDs
+
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/ROM_Block.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/ROM_Block.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ROM_Block
+-- Compiling architecture SYN of rom_block
+
 } {} {}} {X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -17,7 +34,50 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity tb_register_file
 -- Compiling architecture bench of tb_register_file
 
+} {} {}} {Y:/Labs/Memory Lab 2/testbench/tb_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/testbench/tb_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity tb_controller
+-- Compiling architecture testbench of tb_controller
+-- Loading entity FPGA4U_WITH_CONTROLLER
+
+} {} {}} {Y:/Labs/Memory Lab 2/testbench/tb_register_file.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/testbench/tb_register_file.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tb_register_file
+-- Compiling architecture bench of tb_register_file
+
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/register_file.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/register_file.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity register_file
+-- Compiling architecture synth of register_file
+
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FPGA4U_WITH_CONTROLLER
+-- Compiling architecture bdf_type of FPGA4U_WITH_CONTROLLER
+
 } {} {}} {X:/Labs/Memory Lab 2/vhdl/ROM.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/vhdl/ROM.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ROM
+-- Compiling architecture synth of ROM
+
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/ROM.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/ROM.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -34,36 +94,33 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity RAM
 -- Compiling architecture synth of RAM
 
-} {} {}} {Y:/Labs/Memory Lab 2/vhdl/RAM.vhd} {2 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd}
--- Loading package STANDARD
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/RAM.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/RAM.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package TEXTIO
--- Loading package std_logic_1164
-** Warning: (vcom-6) -- Waiting for lock by "zvizdenc@IC-WINMA-096, pid = 2556
--- Compiling entity decoder
-". Lockfile is "Y:/Labs/Memory Lab 2/modelsim/work/_lock".
--- Compiling architecture synth of decoder
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity FPGA4U_WITHOUT_CONTROLLER
--- Compiling architecture bdf_type of FPGA4U_WITHOUT_CONTROLLER
+-- Loading package NUMERIC_STD
+-- Compiling entity RAM
+-- Compiling architecture synth of RAM
 
-} {} {}} {Y:/Labs/Memory Lab 2/testbench/tb_memories.vhd} {2 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/decoder.vhd}
+} {} {}} {Y:/Labs/Memory Lab 2/testbench/tb_memories.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/testbench/tb_memories.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
 -- Compiling entity tb_memories
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling architecture testbench of tb_memories
 -- Loading entity FPGA4U_WITHOUT_CONTROLLER
-** Warning: (vcom-6) -- Waiting for lock by "zvizdenc@IC-WINMA-096, pid = 6476
-". Lockfile is "Y:/Labs/Memory Lab 2/modelsim/work/_lock".
+
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/Controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/Controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity decoder
--- Compiling architecture synth of decoder
+-- Loading package NUMERIC_STD
+-- Compiling entity controller
+-- Compiling architecture synth of controller
 
 } {} {}} {X:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -89,34 +146,36 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity decoder
 -- Compiling architecture synth of decoder
 
-} {} {}} {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd} {2 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd}
--- Loading package STANDARD
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package TEXTIO
--- Loading package std_logic_1164
-** Warning: (vcom-6) -- Waiting for lock by "zvizdenc@IC-WINMA-096, pid = 2556
--- Compiling entity decoder
-". Lockfile is "Y:/Labs/Memory Lab 2/modelsim/work/_lock".
--- Compiling architecture synth of decoder
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling entity FPGA4U_WITHOUT_CONTROLLER
 -- Compiling architecture bdf_type of FPGA4U_WITHOUT_CONTROLLER
 
-} {} {}} {Y:/Labs/Memory Lab 2/vhdl/decoder.vhd} {2 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd}
--- Loading package STANDARD
+} {} {}} {Y:/Labs/Memory Lab 2/vhdl/rgb_led96.vhd} {0 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/rgb_led96.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package TEXTIO
--- Loading package std_logic_1164
-** Warning: (vcom-6) -- Waiting for lock by "zvizdenc@IC-WINMA-096, pid = 2556
--- Compiling entity decoder
-". Lockfile is "Y:/Labs/Memory Lab 2/modelsim/work/_lock".
--- Compiling architecture synth of decoder
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity FPGA4U_WITHOUT_CONTROLLER
--- Compiling architecture bdf_type of FPGA4U_WITHOUT_CONTROLLER
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling package pack
+-- Compiling package body pack
+do_read(): BLOCKFILE ERROR (read): unexpected end-of-file
+doVOpenFlatFile(): INTERNAL ERROR: page load failed for file Y:/Labs/Memory Lab 2/modelsim/work/pack/_primary.dat (10:10 1:1 346 0 0 301 0x0:0x63447db6)
+** Error: Y:/Labs/Memory Lab 2/vhdl/rgb_led96.vhd(17): (vcom-1915) Cannot load design unit "work.pack".
+** Error: (vcom-7) Failed to open library file "Y:/Labs/Memory Lab 2/modelsim/work/pack/_primary.dat" in read mode.
+No such file or directory. (errno = ENOENT)
+** Error: Y:/Labs/Memory Lab 2/vhdl/rgb_led96.vhd(17): VHDL Compiler exiting
+
+} {12.0 14.0 15.0 16.0} {}} {Y:/Labs/Memory Lab 2/vhdl/decoder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {Y:/Labs/Memory Lab 2/vhdl/decoder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity decoder
+-- Compiling architecture synth of decoder
 
 } {} {}}
