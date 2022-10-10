@@ -1,0 +1,61 @@
+{X:/Labs/Memory Lab 2/vhdl/LEDs.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/vhdl/RAM.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity RAM
+-- Compiling architecture synth of RAM
+
+} {} {}} {X:/Labs/Memory Lab 2/testbench/tb_memories.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/testbench/tb_memories.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tb_memories
+-- Compiling architecture testbench of tb_memories
+-- Loading entity FPGA4U_WITHOUT_CONTROLLER
+
+} {} {}} {X:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FPGA4U_WITH_CONTROLLER
+-- Compiling architecture bdf_type of FPGA4U_WITH_CONTROLLER
+
+} {} {}} {X:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity FPGA4U_WITHOUT_CONTROLLER
+-- Compiling architecture bdf_type of FPGA4U_WITHOUT_CONTROLLER
+
+} {} {}} {X:/Labs/Memory Lab 2/vhdl/ROM.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/vhdl/ROM.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ROM
+-- Compiling architecture synth of ROM
+
+} {} {}} {X:/Labs/Memory Lab 2/vhdl/decoder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/vhdl/decoder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity decoder
+-- Compiling architecture synth of decoder
+
+} {} {}} {X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd} {1 {vcom -work work -2002 -explicit -stats=none {X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tb_register_file
+-- Compiling architecture bench of tb_register_file
+
+} {} {}}

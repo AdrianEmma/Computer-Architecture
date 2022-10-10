@@ -18,6 +18,8 @@ architecture synth of RAM is
     -- 4KB = 1024 * 4B => 1024 words * 32-bit per word 
     type ram_type is array(0 to 1023) of std_logic_vector(31 downto 0);
     signal ram : ram_type := (others => (others => '0'));
+    signal rd_address : std_logic_vector(9 downto 0);
+    signal saved_en : std_logic;
 begin
     -- Synchronous WRITE process --
     write_process: process(clk)
@@ -31,18 +33,27 @@ begin
         end if;
     end process write_process;
 
-    -- Synchronous READ process --
-    read_process: process(clk)
+    -- Synchronous READ outputter --
+    read_process: process(saved_en, rd_address)
     begin
         -- Data ready to be read on current clock cycle -- 
-        if rising_edge(clk) then
-            if read = '1' and cs ='1' then
-                -- Tri-state Buffer (Enable=1) IN --> OUT
-                rddata <= ram(to_integer(unsigned(address))); 
-            else 
-                -- Tri-state Buffer (Enable=0) IN --> Z
-                rddata <= (others => 'Z');
-            end if;
+        if saved_en = '1' then
+            -- Tri-state Buffer (Enable=1) IN --> OUT
+            -- rddata <= data;
+            rddata <= ram(to_integer(unsigned(rd_address)));
+        else 
+            -- Tri-state Buffer (Enable=0) IN --> Z
+            rddata <= (others => 'Z');
         end if;
     end process read_process;
+
+    -- Synchronous READ selector
+    select_process: process(clk)
+    begin 
+        if (rising_edge(clk)) then
+            rd_address <= address;
+            saved_en <= cs and read;
+        end if;
+    end process select_process;
+
 end synth;

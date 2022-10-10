@@ -8,85 +8,365 @@ z2
 !i10f 100
 cModel Technology
 dC:/altera_lite/16.0
+Edecoder
+Z0 w1665413512
+Z1 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z2 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z3 dX:/Labs/Memory Lab 2/modelsim
+Z4 8X:/Labs/Memory Lab 2/vhdl/decoder.vhd
+Z5 FX:/Labs/Memory Lab 2/vhdl/decoder.vhd
+l0
+L4
+VHleZ8ETX2N1<:[J7c]Z5<1
+!s100 Z4;PX@AjlkWTaZO7B^RL42
+Z6 OV;C;10.5b;63
+32
+!s110 1665413936
+!i10b 1
+Z7 !s108 1665413930.000000
+Z8 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/decoder.vhd|
+Z9 !s107 X:/Labs/Memory Lab 2/vhdl/decoder.vhd|
+!i113 1
+Z10 o-work work -2002 -explicit
+Z11 tExplicit 1 CvgOpt 0
+Asynth
+R1
+R2
+DEx4 work 7 decoder 0 22 HleZ8ETX2N1<:[J7c]Z5<1
+l14
+L13
+VDcAG12^J3oFd[6Sz_@[H@1
+!s100 SCeG`@7gTG7KP@GCMOJ:k1
+R6
+32
+!s110 1665413937
+!i10b 1
+R7
+R8
+R9
+!i113 1
+R10
+R11
+Efpga4u_with_controller
+Z12 w1664403512
+R1
+R2
+R3
+Z13 8X:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd
+Z14 FX:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd
+l0
+L24
+V=:f=j`>OO=61_Q:WX;AeN1
+!s100 `1RbW94><6J]8CK?H<fzS3
+R6
+32
+!s110 1665413749
+!i10b 1
+Z15 !s108 1665413743.000000
+Z16 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd|
+Z17 !s107 X:/Labs/Memory Lab 2/vhdl/FPGA4U_with_controller.vhd|
+!i113 1
+R10
+R11
+Abdf_type
+R1
+R2
+DEx4 work 22 fpga4u_with_controller 0 22 =:f=j`>OO=61_Q:WX;AeN1
+l97
+L33
+V<iXS`zZaco0^BPS_`^KnA0
+!s100 RcJMHfGX2QE:aLibWNebS2
+R6
+32
+!s110 1665413751
+!i10b 1
+R15
+R16
+R17
+!i113 1
+R10
+R11
+Efpga4u_without_controller
+R12
+R1
+R2
+R3
+Z18 8X:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd
+Z19 FX:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd
+l0
+L24
+VFCoiMT1ozEjHKS<L095c@1
+!s100 69dai>]IQUYlKDS^l9;He1
+R6
+32
+!s110 1665413725
+!i10b 1
+Z20 !s108 1665413719.000000
+Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd|
+Z22 !s107 X:/Labs/Memory Lab 2/vhdl/FPGA4U_without_controller.vhd|
+!i113 1
+R10
+R11
+Abdf_type
+R1
+R2
+Z23 DEx4 work 25 fpga4u_without_controller 0 22 FCoiMT1ozEjHKS<L095c@1
+l86
+L38
+V3eS^oHjd]:IN0nhaT]z9[0
+!s100 29N9S8[5?VkolAz4YIf:;2
+R6
+32
+!s110 1665413726
+!i10b 1
+R20
+R21
+R22
+!i113 1
+R10
+R11
+Eleds
+R12
+Z24 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+R1
+R2
+R3
+Z25 8X:/Labs/Memory Lab 2/vhdl/LEDs.vhd
+Z26 FX:/Labs/Memory Lab 2/vhdl/LEDs.vhd
+l0
+L5
+V82^IRfHNag^>;Yc>Z[nm>3
+!s100 LBhnQz<diU;5h1EbFfFEW1
+R6
+32
+!s110 1665413961
+!i10b 1
+Z27 !s108 1665413955.000000
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/LEDs.vhd|
+Z29 !s107 X:/Labs/Memory Lab 2/vhdl/LEDs.vhd|
+!i113 1
+R10
+R11
+Asynth
+R24
+R1
+R2
+DEx4 work 4 leds 0 22 82^IRfHNag^>;Yc>Z[nm>3
+l34
+L22
+Vj;cD^kSPz:JHjlD@L]j;81
+!s100 ^Eb^?kG1CKeS`DJCfdSl82
+R6
+32
+!s110 1665413963
+!i10b 1
+R27
+R28
+R29
+!i113 1
+R10
+R11
+Eram
+Z30 w1665421295
+R24
+R1
+R2
+R3
+Z31 8X:/Labs/Memory Lab 2/vhdl/RAM.vhd
+Z32 FX:/Labs/Memory Lab 2/vhdl/RAM.vhd
+l0
+L5
+VJiWAmLGUWmdVPB8L2QZ[D3
+!s100 9O>00CFElD4PLMkihiTWm3
+R6
+32
+!s110 1665421317
+!i10b 1
+Z33 !s108 1665421310.000000
+Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/RAM.vhd|
+Z35 !s107 X:/Labs/Memory Lab 2/vhdl/RAM.vhd|
+!i113 1
+R10
+R11
+Asynth
+R24
+R1
+R2
+Z36 DEx4 work 3 ram 0 22 JiWAmLGUWmdVPB8L2QZ[D3
+l23
+L16
+VIdhB<>=bCb0CdEJ@H`^Zo0
+!s100 7jcc2_olmng^oF@_DZdLb0
+R6
+32
+!s110 1665421318
+!i10b 1
+R33
+R34
+R35
+!i113 1
+R10
+R11
 Eregister_file
-Z0 w1664960620
-Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
-Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
-Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
-Z4 dX:/Labs/Memory Lab 2/modelsim
-Z5 8X:/Labs/Memory Lab 2/vhdl/register_file.vhd
-Z6 FX:/Labs/Memory Lab 2/vhdl/register_file.vhd
+Z37 w1664960620
+R24
+R1
+R2
+R3
+Z38 8X:/Labs/Memory Lab 2/vhdl/register_file.vhd
+Z39 FX:/Labs/Memory Lab 2/vhdl/register_file.vhd
 l0
 L5
 VhQYRZ<6ijZW2:hk46k4IZ2
 !s100 _;mToXbZzY:WVO^oMIJ;J3
-Z7 OV;C;10.5b;63
+R6
 32
 !s110 1665413137
 !i10b 1
-Z8 !s108 1665413130.000000
-Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/register_file.vhd|
-Z10 !s107 X:/Labs/Memory Lab 2/vhdl/register_file.vhd|
+Z40 !s108 1665413130.000000
+Z41 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/register_file.vhd|
+Z42 !s107 X:/Labs/Memory Lab 2/vhdl/register_file.vhd|
 !i113 1
-Z11 o-work work -2002 -explicit
-Z12 tExplicit 1 CvgOpt 0
+R10
+R11
 Asynth
+R24
 R1
 R2
-R3
 DEx4 work 13 register_file 0 22 hQYRZ<6ijZW2:hk46k4IZ2
 l23
 L18
 V9NJ3_2Q^2Q<<[7LHOGaTR1
 !s100 S5YD<F1hn[7@UbHFn]NVd0
-R7
+R6
 32
 !s110 1665413138
 !i10b 1
-R8
-R9
-R10
+R40
+R41
+R42
 !i113 1
+R10
 R11
+Erom
 R12
-Etb_register_file
-Z13 w1665413049
 R1
 R2
 R3
-R4
-Z14 8X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd
-Z15 FX:/Labs/Memory Lab 2/testbench/tb_register_file.vhd
+Z43 8X:/Labs/Memory Lab 2/vhdl/ROM.vhd
+Z44 FX:/Labs/Memory Lab 2/vhdl/ROM.vhd
+l0
+L4
+VLD>LKJh0<<KfR_G::f?6B1
+!s100 LzhnA0@bLeKPHkcXf<L3g3
+R6
+32
+!s110 1665414013
+!i10b 1
+Z45 !s108 1665414006.000000
+Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/ROM.vhd|
+Z47 !s107 X:/Labs/Memory Lab 2/vhdl/ROM.vhd|
+!i113 1
+R10
+R11
+Asynth
+R1
+R2
+DEx4 work 3 rom 0 22 LD>LKJh0<<KfR_G::f?6B1
+l15
+L14
+Vz=mBVIPX`?]c@nlh>E5:L3
+!s100 TlVZiDfE0e^bEh1dmkZdP3
+R6
+32
+!s110 1665414014
+!i10b 1
+R45
+R46
+R47
+!i113 1
+R10
+R11
+Etb_memories
+R12
+R24
+R1
+R2
+R3
+Z48 8X:/Labs/Memory Lab 2/testbench/tb_memories.vhd
+Z49 FX:/Labs/Memory Lab 2/testbench/tb_memories.vhd
+l0
+L5
+V_[B`<1i^G3X9j`zn<9dcS1
+!s100 >eaMjaQUiFi7T3R9cd3^`0
+R6
+32
+!s110 1665413796
+!i10b 1
+Z50 !s108 1665413790.000000
+Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/testbench/tb_memories.vhd|
+Z52 !s107 X:/Labs/Memory Lab 2/testbench/tb_memories.vhd|
+!i113 1
+R10
+R11
+Atestbench
+R23
+R24
+R1
+R2
+DEx4 work 11 tb_memories 0 22 _[B`<1i^G3X9j`zn<9dcS1
+l19
+L8
+VHU:`e0JJVh96^59cS[6]<1
+!s100 Qec@BZNh5SP611?l>lh_T3
+R6
+32
+!s110 1665413798
+!i10b 1
+R50
+R51
+R52
+!i113 1
+R10
+R11
+Etb_register_file
+Z53 w1665413049
+R24
+R1
+R2
+R3
+Z54 8X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd
+Z55 FX:/Labs/Memory Lab 2/testbench/tb_register_file.vhd
 l0
 L5
 V9dGOXn>gC30@lMD0]CZ;O3
 !s100 1`;gKjLez8z?IanM[D4a_3
-R7
+R6
 32
 !s110 1665413194
 !i10b 1
-Z16 !s108 1665413188.000000
-Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd|
-Z18 !s107 X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd|
+Z56 !s108 1665413188.000000
+Z57 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd|
+Z58 !s107 X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd|
 !i113 1
+R10
 R11
-R12
 Abench
+R24
 R1
 R2
-R3
 DEx4 work 16 tb_register_file 0 22 9dGOXn>gC30@lMD0]CZ;O3
 l31
 L8
 VHA?G;@9A8g6QA;K8dn0B;3
 !s100 =@_;eiCGXYn4QU[[9VzI32
-R7
+R6
 32
 !s110 1665413195
 !i10b 1
-R16
-R17
-R18
+R56
+R57
+R58
 !i113 1
+R10
 R11
-R12
