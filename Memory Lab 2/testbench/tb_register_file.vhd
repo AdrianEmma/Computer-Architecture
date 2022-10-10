@@ -80,10 +80,18 @@ begin
         assert to_integer(unsigned(a)) = 0
             report "Unexpected value in register AA"
             severity ERROR;
-        -- Value in register 7 should be 8
-        assert to_integer(unsigned(b)) = 8
-            report "Unexpected value in register AB"
-            severity ERROR;
+        
+        -- Value in register i should be i+1
+        for i in 1 to 31 loop
+            ab <= std_logic_vector(to_unsigned(i, 5));
+            -- Wait for address values to propagate
+            wait for CLK_PERIOD;
+
+            -- Check the value inside the register
+            assert(to_integer(unsigned(b))) = i+1
+                report "Unexpected value in register AB"
+                severity ERROR;
+        end loop;
 
         stop <= '1';
         wait;

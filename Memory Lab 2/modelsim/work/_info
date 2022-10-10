@@ -8,3 +8,85 @@ z2
 !i10f 100
 cModel Technology
 dC:/altera_lite/16.0
+Eregister_file
+Z0 w1664960620
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dX:/Labs/Memory Lab 2/modelsim
+Z5 8X:/Labs/Memory Lab 2/vhdl/register_file.vhd
+Z6 FX:/Labs/Memory Lab 2/vhdl/register_file.vhd
+l0
+L5
+VhQYRZ<6ijZW2:hk46k4IZ2
+!s100 _;mToXbZzY:WVO^oMIJ;J3
+Z7 OV;C;10.5b;63
+32
+!s110 1665413137
+!i10b 1
+Z8 !s108 1665413130.000000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/vhdl/register_file.vhd|
+Z10 !s107 X:/Labs/Memory Lab 2/vhdl/register_file.vhd|
+!i113 1
+Z11 o-work work -2002 -explicit
+Z12 tExplicit 1 CvgOpt 0
+Asynth
+R1
+R2
+R3
+DEx4 work 13 register_file 0 22 hQYRZ<6ijZW2:hk46k4IZ2
+l23
+L18
+V9NJ3_2Q^2Q<<[7LHOGaTR1
+!s100 S5YD<F1hn[7@UbHFn]NVd0
+R7
+32
+!s110 1665413138
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Etb_register_file
+Z13 w1665413049
+R1
+R2
+R3
+R4
+Z14 8X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd
+Z15 FX:/Labs/Memory Lab 2/testbench/tb_register_file.vhd
+l0
+L5
+V9dGOXn>gC30@lMD0]CZ;O3
+!s100 1`;gKjLez8z?IanM[D4a_3
+R7
+32
+!s110 1665413194
+!i10b 1
+Z16 !s108 1665413188.000000
+Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd|
+Z18 !s107 X:/Labs/Memory Lab 2/testbench/tb_register_file.vhd|
+!i113 1
+R11
+R12
+Abench
+R1
+R2
+R3
+DEx4 work 16 tb_register_file 0 22 9dGOXn>gC30@lMD0]CZ;O3
+l31
+L8
+VHA?G;@9A8g6QA;K8dn0B;3
+!s100 =@_;eiCGXYn4QU[[9VzI32
+R7
+32
+!s110 1665413195
+!i10b 1
+R16
+R17
+R18
+!i113 1
+R11
+R12
