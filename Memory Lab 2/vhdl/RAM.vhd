@@ -18,8 +18,8 @@ architecture synth of RAM is
     -- 4KB = 1024 * 4B => 1024 words * 32-bit per word 
     type ram_type is array(0 to 1023) of std_logic_vector(31 downto 0);
     signal ram : ram_type := (others => (others => '0'));
-    signal rd_address : std_logic_vector(9 downto 0);
-    signal saved_en : std_logic;
+    signal sv_address : std_logic_vector(9 downto 0);
+    signal sv_csread : std_logic;
 begin
     -- Synchronous WRITE process --
     write_process: process(clk)
@@ -33,26 +33,27 @@ begin
         end if;
     end process write_process;
 
-    -- Synchronous READ outputter --
-    read_process: process(saved_en, rd_address)
+    -- Synchronous READ retriever (cycle #1 of READ) --
+    read_process: process(sv_csread, sv_address)
     begin
-        -- Data ready to be read on current clock cycle -- 
-        if saved_en = '1' then
+        -- Data ready to be retrieved on current clock cycle -- 
+        if sv_csread = '1' then
             -- Tri-state Buffer (Enable=1) IN --> OUT
-            -- rddata <= data;
-            rddata <= ram(to_integer(unsigned(rd_address)));
+            rddata <= ram(to_integer(unsigned(sv_address)));
         else 
             -- Tri-state Buffer (Enable=0) IN --> Z
             rddata <= (others => 'Z');
         end if;
     end process read_process;
 
-    -- Synchronous READ selector
+    -- Synchronous READ selector (cycle #0 of READ) --
     select_process: process(clk)
     begin 
+        -- Address and cs, read signals are ready to be saved
         if (rising_edge(clk)) then
-            rd_address <= address;
-            saved_en <= cs and read;
+            -- Save address and (cs and read) --
+            sv_address <= address;
+            sv_csread <= cs and read;
         end if;
     end process select_process;
 
