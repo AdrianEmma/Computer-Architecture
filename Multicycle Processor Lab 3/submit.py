@@ -22,12 +22,18 @@ if __name__ == "__main__":
     
     vhdl = getAbsPath(
         "vhdl",
-        ["Controller.vhd", "decoder.vhd", "RAM.vhd", "register_file.vhd"]
+        ["IR.vhd", "PC.vhd", "buttons.vhd", "controller.vhd", 
+        "extend.vhd", "mux2x5.vhd", "mux2x16.vhd", "mux2x32.vhd", 
+        "ALU.vhd", "add_sub.vhd", "comparator.vhd", "logic_unit.vhd",
+        "multiplexer.vhd", "shift_unit.vhd", "register_file.vhd",
+        "CPU.vhd", "decoder.vhd", "RAM.vhd"]
     )
+
+  
 
 
     job = JenkinsJob(
-        name=f"02-memories-{auth[0]}",
+        name=f"03-multicycle-{auth[0]}",
         files= vhdl,
         auth=auth
     )

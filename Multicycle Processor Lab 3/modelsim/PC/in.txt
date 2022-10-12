@@ -1,0 +1,24 @@
+# 1       2  3     4       5       6    7    8 9
+# reset_n:en:sel_a:sel_imm:add_imm:imm: a:  (v)addr
+- Program Counter test:
+  0       0  0     0       0       0000 0000 0 00000000
+  1       1  0     0       0       7FFF 7FFF 1 00000000
+  1       1  0     0       0       7FFF 7FFF 1 00000004
+- reset_n test...
+  0       1  1     1       1       7FFF 7FFF 1 00000000
+  1       1  0     0       0       7FFF 7FFF 1 00000000
+  1       1  0     0       0       7FFF 7FFF 1 00000004
+  1       1  0     1       0       15A0 7FFF 1 00000008
+- sel_imm test...
+  1       1  1     0       0       7FFF AA50 1 00005680
+- sel_a test...
+  1       1  0     0       1       00A0 7FFF 1 0000AA50
+- add_imm test...
+  1       1  0     0       1       FFB0 7FFF 1 0000AAF0
+  1       0  1     1       1       7FFF 7FFF 1 0000AAA0
+- enable test...
+  1       1  0     0       0       7FFF 7FFF 1 0000AAA0
+- pc+4 test...
+  1       1  0     0       0       7FFF 7FFF 1 0000AAA4
+  1       1  0     0       0       7FFF 7FFF 1 0000AAA8
+  1       1  0     0       0       7FFF 7FFF 1 0000AAAC

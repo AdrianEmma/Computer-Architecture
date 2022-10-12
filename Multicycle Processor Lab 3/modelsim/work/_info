@@ -1,0 +1,136 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/HP PC/Google Drive/Teaching/ArchOrd Mirjana/3-multicycle_niosII-workinprogress/project_template/modelsim
+Pcheck_functions
+Z0 DPx4 ieee 16 std_logic_textio 0 22 V5TSK`;aJKC<l]CEg1>mz1
+Z1 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z2 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z3 w1473433240
+Z4 dC:/Users/HP PC/Google Drive/Teaching/ArchOrd Mirjana/3-multicycle_niosII/project_template/modelsim
+Z5 8../testbench/check_functions.vhd
+Z6 F../testbench/check_functions.vhd
+l0
+L6
+VRYe`2[4U73X[nK3nC6gei3
+!s100 eDnLHELO`V5ohl=5KQY@20
+Z7 OV;C;10.4d;61
+31
+b1
+Z8 !s110 1507121053
+!i10b 1
+Z9 !s108 1507121053.000000
+Z10 !s90 -reportprogress|300|-93|../testbench/check_functions.vhd|
+Z11 !s107 ../testbench/check_functions.vhd|
+!i113 1
+o-93
+Z12 tExplicit 1
+Bbody
+Z13 DPx4 work 15 check_functions 0 22 RYe`2[4U73X[nK3nC6gei3
+R0
+R1
+R2
+l0
+L40
+VoehS8`bKGCdlHBEzNX8R21
+!s100 ]Ul<gd[SNh_SV]VQVO[::0
+R7
+31
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+o-93
+R12
+Econtroller
+R3
+R1
+R2
+R4
+Z14 8../vhdl/controller.vhd
+Z15 F../vhdl/controller.vhd
+l0
+L4
+V6FhG[9W_gPzHhLgmk`Tje2
+!s100 iLCb?>B5ja1L5iDVmAU]]0
+R7
+31
+R8
+!i10b 1
+R9
+Z16 !s90 -reportprogress|300|-93|../vhdl/controller.vhd|
+Z17 !s107 ../vhdl/controller.vhd|
+!i113 1
+o-93
+R12
+Asynth
+R1
+R2
+DEx4 work 10 controller 0 22 6FhG[9W_gPzHhLgmk`Tje2
+l40
+L39
+VibgYYLcL07i7zeiJ8oam33
+!s100 I@5[7Rha<4mXjGXY?Ha]m2
+R7
+31
+R8
+!i10b 1
+R9
+R16
+R17
+!i113 1
+o-93
+R12
+Etb_controller
+R3
+R13
+R0
+Z18 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+R1
+R2
+R4
+Z19 8../testbench/tb_Controller.vhd
+Z20 F../testbench/tb_Controller.vhd
+l0
+L9
+V0>@NJz45o9SWL71JJI]AM2
+!s100 QPYMI?@zF<fA]gVd9c[kS0
+R7
+31
+Z21 !s110 1507121054
+!i10b 1
+Z22 !s108 1507121054.000000
+Z23 !s90 -reportprogress|300|-93|../testbench/tb_Controller.vhd|
+Z24 !s107 ../testbench/tb_Controller.vhd|
+!i113 1
+o-93
+R12
+Atestbench
+R13
+R0
+R18
+R1
+R2
+DEx4 work 13 tb_controller 0 22 0>@NJz45o9SWL71JJI]AM2
+l102
+L15
+VGiWKHEGIT74Di1J2SFIlH1
+!s100 _WkzDDFBPd:3LHMWS[AoW2
+R7
+31
+R21
+!i10b 1
+R22
+R23
+R24
+!i113 1
+o-93
+R12

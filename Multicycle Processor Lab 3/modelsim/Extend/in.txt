@@ -1,0 +1,7 @@
+# 1      2     3
+# signed:imm16:imm32
+- Extend unit test:
+  0      7123  00007123
+  1      7456  00007456
+  0      8789  00008789
+  1      8ABC  FFFF8ABC
