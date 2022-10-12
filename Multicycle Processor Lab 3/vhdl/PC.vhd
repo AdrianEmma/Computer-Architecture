@@ -17,18 +17,19 @@ entity PC is
 end PC;
 
 architecture synth of PC is
+    signal counter : std_logic_vector(15 downto 0);
 begin
     inc_address : process(clk)
     begin
         if rising_edge(clk) then
             if en='1' then
-                addr <= x"0000" & std_logic_vector(unsigned(a) + 4);
+                counter <= std_logic_vector(unsigned(counter) + 4);
             else 
                 if reset_n='1' then
-                    addr <= x"00000000";
+                    counter <= x"0000";
                 end if;
             end if;
         end if;
-
+    addr <= x"0000" & counter(15 downto 2) & "00";
     end process inc_address;
 end synth;
