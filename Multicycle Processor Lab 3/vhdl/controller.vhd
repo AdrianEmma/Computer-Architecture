@@ -67,7 +67,7 @@ begin
         pc_add_imm <= '0';
         ir_en <= '0';
         pc_en <= '0';
-        next_state <= FETCH1;
+        -- next_state <= FETCH1;
 
         case current_state is
 
@@ -84,6 +84,8 @@ begin
             
             -- State DECODE of FSM
             when DECODE =>
+                pc_en <= '0';
+                ir_en <= '0';
                 case "00" & op is
                     when x"3A" =>
                         case "00" & opx is 
@@ -94,7 +96,7 @@ begin
                     when x"04" => next_state <= I_OP;
                     when x"17" => next_state <= LOAD1;
                     when x"15" => next_state <= STORE;
-                    when others => NULL;
+                    when others => next_state <= FETCH1;
                 end case;
 
             -- State R_OP of FSM
@@ -113,7 +115,8 @@ begin
                 next_state <= FETCH1;
             
             -- State BREAK of FSM
-            when BREAK  => NULL;
+            when BREAK  => 
+                next_state <= FETCH1;
             
             -- State LOAD1 of FSM
             when LOAD1  =>
