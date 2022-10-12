@@ -7,7 +7,7 @@ entity decoder is
         cs_LEDS : out std_logic;
         cs_RAM  : out std_logic;
         cs_ROM  : out std_logic;
-        cs_BUTT : out std_logic
+        cs_Buttons : out std_logic
     );
 end decoder;
 
@@ -19,30 +19,30 @@ begin
             cs_ROM <= '1';
             cs_LEDS <= '0';
             cs_RAM <= '0';
-            cs_BUTT <= '0';
+            cs_Buttons <= '0';
         else 
             if address >= x"1000" and address <= x"1FFF" then
                 cs_RAM <= '1';
                 cs_LEDS <= '0';
                 cs_ROM <= '0';
-                cs_BUTT <= '0';
+                cs_Buttons <= '0';
             else 
                 if address >= x"2000" and address <= x"200C" then
                     cs_LEDS <= '1';
                     cs_RAM <= '0';
                     cs_ROM <= '0';
-                    cs_BUTT <= '0';
+                    cs_Buttons <= '0';
                 else 
                     if address >= x"2030" and address <= x"2034" then
                         cs_LEDS <= '0';
                         cs_RAM <= '0';
                         cs_ROM <= '0';
-                        cs_BUTT <= '1';
+                        cs_Buttons <= '1';
                     else
                         cs_LEDS <= '0';
                         cs_RAM <= '0';
                         cs_ROM <= '0';
-                        cs_BUTT <= '0';   
+                        cs_Buttons <= '0';   
                     end if;
                 end if;
             end if;
