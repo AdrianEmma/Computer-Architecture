@@ -19,17 +19,25 @@ end PC;
 architecture synth of PC is
     signal counter : std_logic_vector(15 downto 0);
 begin
-    inc_address : process(clk)
+    inc_address : process(clk, reset_n)
     begin
-        if rising_edge(clk) then
-            if en='1' then
+        -- Asynchronous Program Counter RESET
+        if reset_n='0' then
+            counter <= x"0000";
+        elsif rising_edge(clk) and en='1' then
+            if add_imm = '1' then
+                counter <= std_logic_vector(unsigned(counter) + unsigned(imm));
+            elsif sel_imm = '1' then
+                counter <= std_logic_vector(shift_left(unsigned(imm), 2));
+            elsif sel_a = '1' then
+                counter <= a;
+            else    
                 counter <= std_logic_vector(unsigned(counter) + 4);
-            else 
-                if reset_n='1' then
-                    counter <= x"0000";
-                end if;
             end if;
         end if;
-    addr <= x"0000" & counter(15 downto 2) & "00";
     end process inc_address;
+    
+    -- Update address
+    addr <= x"0000" & counter(15 downto 2) & "00";
+
 end synth;
