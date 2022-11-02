@@ -20,24 +20,16 @@
     .equ RUN, 2
 
     ;; constants
-    .equ N_SEEDS, 4                     ; number of available seeds
-    .equ N_GSA_LINES, 8                 ; number of gsa lines
-    .equ N_GSA_COLUMNS, 12              ; number of gsa columns
-    .equ MAX_SPEED, 10                  ; maximum speed
-    .equ MIN_SPEED, 1                   ; minimum speed
-    .equ PAUSED, 0x00                   ; game paused value
-    .equ RUNNING, 0x01                  ; game running value
+    .equ N_SEEDS, 4
+    .equ N_GSA_LINES, 8
+    .equ N_GSA_COLUMNS, 12
+    .equ MAX_SPEED, 10
+    .equ MIN_SPEED, 1
+    .equ PAUSED, 0x00
+    .equ RUNNING, 0x01
 
 main:
     ;; TODO
-
-
-; BEGIN: clear_leds
-clear_leds:
-    
-    ret
-; END: clear_leds
-
 
 font_data:
     .word 0xFC ; 0
