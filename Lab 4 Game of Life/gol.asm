@@ -20,16 +20,64 @@
     .equ RUN, 2
 
     ;; constants
-    .equ N_SEEDS, 4
-    .equ N_GSA_LINES, 8
-    .equ N_GSA_COLUMNS, 12
-    .equ MAX_SPEED, 10
-    .equ MIN_SPEED, 1
-    .equ PAUSED, 0x00
-    .equ RUNNING, 0x01
+    .equ N_SEEDS, 4                     ; number of available seeds
+    .equ N_GSA_LINES, 8                 ; number of gsa lines
+    .equ N_GSA_COLUMNS, 12              ; number of gsa columns
+    .equ MAX_SPEED, 10                  ; maximum speed
+    .equ MIN_SPEED, 1                   ; minimum speed
+    .equ PAUSED, 0x00                   ; game paused value
+    .equ RUNNING, 0x01                  ; game running value
 
 main:
     ;; TODO
+
+
+; BEGIN: clear_leds
+clear_leds:
+    stw zero, LEDS (zero) ; Store 0 word in LEDS
+    addi t0, zero, 4 ; Move to next word-alligned address
+    stw zero, LEDS (t0) ; Store 0 word in LEDS+4
+    addi t0, t0, 4 ; Move to next word-alligned address
+    stw zero, LEDS (t0) ; ; Store 0 word in LEDS+8
+    ret
+; END: clear_leds
+
+; BEGIN: set_pixel
+set_pixel:
+    srli t0, a0, 2 ; t0 = a0 / 4 - Set the LED group number
+    slli t0, t0, 2 ; Set the address in memory for the LED
+
+    slli t1, a0, 30
+    srli t1, t1, 30 ; t1 = a0 % 4 - Set the LED group column
+
+    slli t2, t1, 3 ; t2 = t1 * 8
+    add t2, t2, a1 ; t2 = t2 + a1 - Set the specific bit to turn on
+
+    addi t3, zero, 1 ; t3 = 0x00000001 - Create the register to shift
+    sll t3, t3, t2 ; t3 = t3 << t2 - Create the mask for the LED
+
+    ldw t4, LEDS(t0) ; Load the value from the LED
+    or t4, t4, t3 ; t4 = t4 or t3 - Apply the mask to the value of the LED
+
+    stw t4, LEDS(t0) ; Turn on the pixel in the LED
+
+    ret
+; END: set_pixel
+
+; BEGIN: wait
+wait:
+    addi t0, zero, 1 ;
+    slli t0, t0, 19 ; Initialize counter 2^19
+
+    ldw t1, SPEED(zero) ; Load the game speed value
+    
+    loop:
+        sub t0, t0, t1 ; Decrement counter with game speed
+        bge t0, zero, loop ; 
+
+    ret
+
+; END: wait
 
 font_data:
     .word 0xFC ; 0

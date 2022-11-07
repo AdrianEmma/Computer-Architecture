@@ -29,7 +29,9 @@
     .equ RUNNING, 0x01                  ; game running value
 
 main:
-    ;; TODO
+	addi a0, zero, 7
+	addi a1, zero, 7
+	call set_pixel
 
 
 ; BEGIN: clear_leds
@@ -47,11 +49,11 @@ set_pixel:
     srli t0, a0, 2 ; t0 = a0 / 4 - Set the LED group number
     slli t0, t0, 2 ; Set the address in memory for the LED
 
-    slli t1, a1, 30
-    srli t1, t1, 30 ; t1 = a1 % 4 - Set the LED group column
+    slli t1, a0, 30
+    srli t1, t1, 30 ; t1 = a0 % 4 - Set the LED group column
 
-    slli t2, t1, 8 ; t2 = t1 * 8
-    sll t2, t2, a1 ; t2 = t2 * a1 - Set the specific bit to turn on
+    slli t2, t1, 3 ; t2 = t1 * 8
+    add t2, t2, a1 ; t2 = t2 + a1 - Set the specific bit to turn on
 
     addi t3, zero, 1 ; t3 = 0x00000001 - Create the register to shift
     sll t3, t3, t2 ; t3 = t3 << t2 - Create the mask for the LED
@@ -63,6 +65,21 @@ set_pixel:
 
     ret
 ; END: set_pixel
+
+; BEGIN: wait
+wait:
+    addi t0, zero, 1 ;
+    slli t0, t0, 3 ; Initialize counter 2^19
+
+    ldw t1, SPEED(zero) ; Load the game speed value
+    
+    loop:
+        sub t0, t0, t1 ; Decrement counter with game speed
+        bge t0, zero, loop ; 
+
+    ret
+
+; END: wait
 
 font_data:
     .word 0xFC ; 0
