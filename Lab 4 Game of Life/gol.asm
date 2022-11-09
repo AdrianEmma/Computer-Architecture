@@ -124,6 +124,35 @@ set_GSA:
 ; END: set_GSA
 
 ; BEGIN: draw_gsa
+draw_gsa:
+    ; Clear the LEDs completely
+    addi sp, sp, -4
+    stw ra, 0(sp)
+    call clear_leds
+    ldw ra, 0(sp)
+    addi sp, sp 4
+
+    ; Find the correct GSA block address - $t0
+    ldw t0, GSA_ID(zero) ; Load GSA_ID flag
+    slli t0, t0, 5 ; Create mask for 6th bit as above
+    ori t0, t0, GSA0 ; Compute the address of selected GSA
+
+    addi t1, zero, 0 ; Number of the line to be set
+    addi t2, zero, 7 ; Number of lines in the GSA and LEDs
+
+    addi t2, zero, 0x01010101 ; Create moving mask
+
+    loop_lines:
+        add a0, zero, t2 ; Pass line as argument for get_GSA()
+
+        addi sp, sp, -4 
+        stw ra, 0(sp) ; PUSH ra
+        call get_GSA
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp 4
+
+
+
 ; END: draw_gsa
 
 font_data:
