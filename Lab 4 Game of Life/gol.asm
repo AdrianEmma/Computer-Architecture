@@ -29,7 +29,11 @@
     .equ RUNNING, 0x01                  ; game running value
 
 main:
-    ;; TODO
+    addi a0, zero, 0x0000400
+    addi a1, zero, 5
+    call set_GSA
+    addi a0, zero, 5
+    call get_GSA
 
 
 ; BEGIN: clear_leds
@@ -73,11 +77,54 @@ wait:
     
     loop:
         sub t0, t0, t1 ; Decrement counter with game speed
-        bge t0, zero, loop ; 
+        bge t0, zero, loop ; if t0 > 0 repeat loop
 
     ret
-
 ; END: wait
+
+; PUSH commands
+    ; addi sp, sp, -4
+    ; stw s3, 0(sp)
+
+; POP commands
+    ; ldw s3, 0(sp)
+    ; addi sp, sp, 4
+
+
+; BEGIN: get_GSA
+get_GSA:
+    ; GSA0 is 0001 0000 0001 1000
+    ; GSA1 is 0001 0000 0011 1000
+    ; The 6th bit is alternating between addresses
+    ldw t1, GSA_ID(zero) ; Load GSA_ID flag
+    slli t1, t1, 5 ; Create mask for 6th bit as above
+    ori t2, t1, GSA0 ; Compute the address of selected GSA
+    slli a0, a0, 2  ; Word-allign the line coordinate y
+    add t2, t2, a0  ; Compute address of correct line
+
+    ldw v0, 0(t2) ; Load the memory line at GSA_line in register v0
+
+    ret ; return to caller function
+; END: get_GSA
+
+; BEGIN: set_GSA
+set_GSA:
+    ; GSA0 is 0001 0000 0001 1000
+    ; GSA1 is 0001 0000 0011 1000
+    ; The 6th bit is alternating between addresses
+    ldw t1, GSA_ID(zero) ; Load GSA_ID flag
+    slli t1, t1, 5 ; Create mask for 6th bit as above
+    ori t2, t1, GSA0 ; Compute the address of selected GSA
+    slli a1, a1, 2  ; Word-allign the line coordinate y
+    add t2, t2, a1  ; Compute address of correct line
+    
+    stw a0, 0(t2) ; Store the value in the memory at GSA_line
+
+    ret
+; END: set_GSA
+
+; BEGIN: draw_gsa
+; END: draw_gsa
 
 font_data:
     .word 0xFC ; 0
