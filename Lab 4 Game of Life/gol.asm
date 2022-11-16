@@ -29,11 +29,39 @@
     .equ RUNNING, 0x01                  ; game running value
 
 main:
-    addi a0, zero, 0x0000400
+    addi sp, zero, CUSTOM_VAR_END
+    
+    addi a0, zero, 0x00000007
+    addi a1, zero, 7
+    call set_GSA
+
+    addi a0, zero, 0x00000004
+    addi a1, zero, 6
+    call set_GSA
+
+    addi a0, zero, 0x00000002
     addi a1, zero, 5
     call set_GSA
-    addi a0, zero, 5
+
+    addi a0, zero, 0x000000E0
+    addi a1, zero, 3
+    call set_GSA
+
+    addi a0, zero, 0x00000080
+    addi a1, zero, 2
+    call set_GSA
+
+    addi a0, zero, 0x00000043
+    addi a1, zero, 1
+    call set_GSA
+
+    addi a0, zero, 0x00000003
+    addi a1, zero, 0
+    call set_GSA
+
+    addi a0, zero, 7
     call get_GSA
+    call draw_gsa
 
 
 ; BEGIN: clear_leds
@@ -125,33 +153,81 @@ set_GSA:
 
 ; BEGIN: draw_gsa
 draw_gsa:
+    ; Save s registers - callee saved
+    addi sp, sp, -4
+    stw s1, 4(sp)
+    ; _______________________________
+
+
     ; Clear the LEDs completely
     addi sp, sp, -4
     stw ra, 0(sp)
     call clear_leds
     ldw ra, 0(sp)
-    addi sp, sp 4
+    addi sp, sp, 4
 
     ; Find the correct GSA block address - $t0
     ldw t0, GSA_ID(zero) ; Load GSA_ID flag
     slli t0, t0, 5 ; Create mask for 6th bit as above
     ori t0, t0, GSA0 ; Compute the address of selected GSA
 
-    addi t1, zero, 0 ; Number of the line to be set
-    addi t2, zero, 7 ; Number of lines in the GSA and LEDs
-
-    addi t2, zero, 0x01010101 ; Create moving mask
+    addi s1, zero, 8 ; Number of the line to be set
 
     loop_lines:
-        add a0, zero, t2 ; Pass line as argument for get_GSA()
-
-        addi sp, sp, -4 
+        addi s1, s1, -1 ; Decrement line counter
+        ; BLOCK: for obtaining the GSA line at coordinate t1
+        add a0, zero, s1 ; Pass line as argument for get_GSA()
+        
+        addi sp, sp, -4
         stw ra, 0(sp) ; PUSH ra
         call get_GSA
         ldw ra, 0(sp) ; POP ra
-        addi sp, sp 4
+        addi sp, sp, 4 
+        ; GSA line is in register v0
+        
+        ; Division of line into 3 groups:
+        addi t5, zero, 0 ; group counter
+        loop_groups:
+            ; addi t5, t5, -1 ; Decrement group counter
+            ; BIT d:
+            andi t3, v0, 0x00000001
+            srli v0, v0, 1
+            ; BIT c:
+            andi t4, v0, 0x00000001
+            srli v0, v0, 1
+            slli t4, t4, 8
+            add t3, t3, t4
+            ; BIT b:
+            andi t4, v0, 0x00000001
+            srli v0, v0, 1
+            slli t4, t4, 16
+            add t3, t3, t4
+            ; BIT a:
+            andi t4, v0, 0x00000001
+            srli v0, v0, 1
+            slli t4, t4, 24
+            add t3, t3, t4
+            ; Reposition to match LED:
+            sll t3, t3, s1
 
+            ; Place word
+            slli t6, t5, 2
+            ldw t1, LEDS(t6)
+            or t3, t3, t1
+            stw t3, LEDS (t6)
 
+            addi t5, t5, 1
+            addi t7, zero, 3
+            bne t5, t7, loop_groups
+
+        bne s1, zero, loop_lines
+
+    ; Restore s registers - callee saved
+    ldw s1, 0(sp)
+    addi sp, sp, 4
+    ; __________________________________
+    
+    ret
 
 ; END: draw_gsa
 
