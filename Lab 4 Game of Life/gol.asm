@@ -29,6 +29,9 @@
     .equ RUNNING, 0x01                  ; game running value
 
 main:
+    test_GSA
+
+test_GSA:
     addi sp, zero, CUSTOM_VAR_END
     
     addi a0, zero, 0x00000007
@@ -63,6 +66,11 @@ main:
     call get_GSA
     call draw_gsa
 
+test_speed:
+    addi t0, zero, 5
+    stw t0, SPEED(zero)
+    addi a0, zero, 1
+    call change_speed
 
 ; BEGIN: clear_leds
 clear_leds:
@@ -151,6 +159,8 @@ set_GSA:
     ret
 ; END: set_GSA
 
+
+; <-------------------- GSA LED FUNCTIONS ----------------->
 ; BEGIN: draw_gsa
 draw_gsa:
     ; Save s registers - callee saved
@@ -166,12 +176,7 @@ draw_gsa:
     ldw ra, 0(sp)
     addi sp, sp, 4
 
-    ; Find the correct GSA block address - $t0
-    ldw t0, GSA_ID(zero) ; Load GSA_ID flag
-    slli t0, t0, 5 ; Create mask for 6th bit as above
-    ori t0, t0, GSA0 ; Compute the address of selected GSA
-
-    addi s1, zero, 8 ; Number of the line to be set
+    addi s1, zero, N_GSA_LINES ; Number of the line to be set
 
     loop_lines:
         addi s1, s1, -1 ; Decrement line counter
@@ -228,9 +233,188 @@ draw_gsa:
     ; __________________________________
     
     ret
-
 ; END: draw_gsa
 
+; BEGIN: random_gsa
+random_gsa:
+    addi t0, zero, N_GSA_LINES # Initialize row counter
+
+    loop_GSA_rows:
+        addi t0, t0, -1 # Decrement row counter
+
+        addi t3, zero, N_GSA_COLUMNS # Initialize column counter
+
+        loop_GSA_columns:
+            addi t3, t3, -1 # Decrement column counter
+
+            ldw t4, RANDOM_NUM(zero)
+            andi t4, t4, 0x1
+            sll t4, t4, t3
+            add t5, zero, t4
+
+            bne t3, zero, loop_GSA_columns
+        
+        # Pass arguments a0, a1 to set_GSA()
+        add a0, zero, t5
+        add a1, zero, t0
+
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call set_GSA
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+        ; New GSA line stored in memory
+        
+        bne t0, zero, loop_GSA_rows
+    ret
+; END: random_gsa
+
+; <----------------------- ACTION FUNCTIONS --------------------->
+; BEGIN: change_speed
+change speed:
+    ldw t0, SPEED(zero) ; load the value of speed
+    cmpeq t1, a0, zero ; t1 = a0=0?
+    beq t1, zero, decrement ; go to decrement if t1 = 0 
+
+    cmpeqi t2, t0, MAX_SPEED ; t2 = t0=10?
+    bne t2, zero, finish ; go to finish if t2 != 0
+
+    addi t0, t0, MIN_SPEED ; increment speed value
+    jmpi finish ; go to finish 
+    decrement: 
+        cmpeqi t3, t0, 1 ; t3 = t0=1?
+        bne t3, zero, finish ; go to finish if t3 != 0
+
+        addi t0, t0, -1 ; decrement speed value
+    finish:
+        stw t0, SPEED(zero) ; store the updated value
+        ret
+; END: change_speed
+
+; BEGIN: pause_game
+pause_game:
+    ldw t0, PAUSE(zero)
+    xori t0, t0, 0x1
+    stw t0, PAUSE(zero)
+    ret
+; END: pause_game
+
+; BEGIN: change_steps
+change_steps:
+    ldw t1, CURR_STEP(zero)
+    add t0, zero, a2
+    slli t0, t0, 4
+    add t0, zero, a1
+    slli t0, t0, 4
+    add t0, zer0, a0
+    add t1, t1, t0
+    stw t1, CURR_STEP(zero)
+    ret
+; END: change_steps
+
+; BEGIN: increment_seed
+increment_seed:
+    ldw t0, CURR_STATE(zero) # Load the current state in t0
+    ldw t2, SEED(zero)
+    cmpeqi t1, t0, INIT # If case t1 = t0=INIT?
+    beq t1, zero, random
+    
+    # IF block
+    addi t2, t2, 1 # Increment game seed
+    stw t2, SEED(zero) # Store updated game seed
+    
+    # Select correct SEED index
+    cmpeqi t4, t2, 0
+    addi t5, zero, seed0 
+    bne t4, zero, sfound
+
+    cmpeqi t4, t2, 1
+    addi t5, zero, seed0 
+    bne t4, zero, sfound
+
+    cmpeqi t4, t2, 2
+    addi t5, zero, seed0 
+    bne t4, zero, sfound
+
+    cmpeqi t4, t2, 3
+    addi t5, zero, seed0 
+    bne t4, zero, sfound
+
+    sfound:
+    
+    # Update GSA with new SEED
+    addi t3, zero, N_GSA_LINES    
+    
+        
+    jmpi endif # Go to endif
+
+    random:
+        cmpeqi t1, t0, RAND # elseif case t1 = t0=RAND?
+        beq t1, zero, endif # Go to endif if t1=0 
+        
+        addi t2, zero, 4
+        stw t2, SEED(zero)
+        
+        # ELSEIF block
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call random_gsa
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4
+
+    endif: 
+        ret
+; END: increment_seed
+
+; BEGIN: update_state
+update_state:
+    cmpeqi t0, a0, zero ; t0=a0=00000?
+    bne t0, zero, endif ; If a0 = 0 go to endif
+    ldw t1, CURR_STATE(zero) ; store value of current state in t1
+    ldw t5, SEED(zero)
+
+    cmpeqi t2, t1, INIT
+    bne t2, zero, init_state
+
+    cmpeqi t2, t1, RAND
+    bne t2, zero rand_state
+
+    cmpeqi t2, t1, RUN
+    bne t2, zero run_state
+    
+    init_state:
+    addi t3, zero, 2 ; create the mask for button 1 value
+    and t3, a0, t3 ; t3 = a0 and t3 -> save the value of button 1 in t3
+    bne t3, zero, change_state_to_run ; go to run if t3 = 1, button 1 is pressed
+    cmpeqi t3, t5, 4 ; t3=t5=4 Checking if the button 0 value = N
+    bne t3, zero, change_state_to_rand
+
+    # We need to keep being in INIT state
+    jmpi endif
+
+    rand_state:
+
+
+    run_state:
+
+    change_state_to_run:
+        addi t4, zero, RUN
+        stw t4, CURR_STATE(zero)
+        jmpi endif
+
+    change_state_rand:
+        addi t4, zero, RAND
+        stw t4, CURR_STATE(zero)
+        jmpi endif
+
+    endif:
+        ret
+; END: update_state
+
+; BEGIN: select_action
+select_action:
+
+; END: select_action
 font_data:
     .word 0xFC ; 0
     .word 0x60 ; 1
