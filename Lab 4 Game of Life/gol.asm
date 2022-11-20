@@ -61,34 +61,34 @@ test_GSA:
     
     addi a0, zero, 0x00000007
     addi a1, zero, 7
-    call set_GSA
+    call set_gsa
 
     addi a0, zero, 0x00000004
     addi a1, zero, 6
-    call set_GSA
+    call set_gsa
 
     addi a0, zero, 0x00000002
     addi a1, zero, 5
-    call set_GSA
+    call set_gsa
 
     addi a0, zero, 0x000000E0
     addi a1, zero, 3
-    call set_GSA
+    call set_gsa
 
     addi a0, zero, 0x00000080
     addi a1, zero, 2
-    call set_GSA
+    call set_gsa
 
     addi a0, zero, 0x00000043
     addi a1, zero, 1
-    call set_GSA
+    call set_gsa
 
     addi a0, zero, 0x00000003
     addi a1, zero, 0
-    call set_GSA
+    call set_gsa
 
     addi a0, zero, 7
-    call get_GSA
+    call get_gsa
     call draw_gsa
 
 test_speed:
@@ -97,7 +97,7 @@ test_speed:
     addi a0, zero, 1
     call change_speed
 
-; BEGIN: clear_leds
+; BEGIN:clear_leds
 clear_leds:
     stw zero, LEDS (zero) ; Store 0 word in LEDS
     addi t0, zero, 4 ; Move to next word-alligned address
@@ -105,9 +105,9 @@ clear_leds:
     addi t0, t0, 4 ; Move to next word-alligned address
     stw zero, LEDS (t0) ; ; Store 0 word in LEDS+8
     ret
-; END: clear_leds
+; END:clear_leds
 
-; BEGIN: set_pixel
+; BEGIN:set_pixel
 set_pixel:
     srli t0, a0, 2 ; t0 = a0 / 4 - Set the LED group number
     slli t0, t0, 2 ; Set the address in memory for the LED
@@ -127,9 +127,9 @@ set_pixel:
     stw t4, LEDS(t0) ; Turn on the pixel in the LED
 
     ret
-; END: set_pixel
+; END:set_pixel
 
-; BEGIN: wait
+; BEGIN:wait
 wait:
     addi t0, zero, 1 ;
     slli t0, t0, 19 ; Initialize counter 2^19
@@ -141,7 +141,7 @@ wait:
         bge t0, zero, loop ; if t0 > 0 repeat loop
 
     ret
-; END: wait
+; END:wait
 
 ; PUSH commands
     ; addi sp, sp, -4
@@ -152,8 +152,8 @@ wait:
     ; addi sp, sp, 4
 
 
-; BEGIN: get_GSA
-get_GSA:
+; BEGIN:get_gsa
+get_gsa:
     ; GSA0 is 0001 0000 0001 1000
     ; GSA1 is 0001 0000 0011 1000
     ; The 6th bit is alternating between addresses
@@ -166,10 +166,10 @@ get_GSA:
     ldw v0, 0(t2) ; Load the memory line at GSA_line in register v0
 
     ret ; return to caller function
-; END: get_GSA
+; END:get_gsa
 
-; BEGIN: set_GSA
-set_GSA:
+; BEGIN:set_gsa
+set_gsa:
     ; GSA0 is 0001 0000 0001 1000
     ; GSA1 is 0001 0000 0011 1000
     ; The 6th bit is alternating between addresses
@@ -182,11 +182,11 @@ set_GSA:
     stw a0, 0(t2) ; Store the value in the memory at GSA_line
 
     ret
-; END: set_GSA
+; END:set_gsa
 
 
 ; <-------------------- GSA LED FUNCTIONS ----------------->
-; BEGIN: draw_gsa
+; BEGIN:draw_gsa
 draw_gsa:
     ; Save s registers - callee saved
     addi sp, sp, -4
@@ -206,11 +206,11 @@ draw_gsa:
     loop_lines:
         addi s1, s1, -1 ; Decrement line counter
         ; BLOCK: for obtaining the GSA line at coordinate t1
-        add a0, zero, s1 ; Pass line as argument for get_GSA()
+        add a0, zero, s1 ; Pass line as argument for get_gsa()
         
         addi sp, sp, -4
         stw ra, 0(sp) ; PUSH ra
-        call get_GSA
+        call get_gsa
         ldw ra, 0(sp) ; POP ra
         addi sp, sp, 4 
         ; GSA line is in register v0
@@ -258,9 +258,9 @@ draw_gsa:
     ; __________________________________
     
     ret
-; END: draw_gsa
+; END:draw_gsa
 
-; BEGIN: random_gsa
+; BEGIN:random_gsa
 random_gsa:
     addi t0, zero, N_GSA_LINES # Initialize row counter
 
@@ -279,23 +279,23 @@ random_gsa:
 
             bne t3, zero, loop_GSA_columns
         
-        # Pass arguments a0, a1 to set_GSA()
+        # Pass arguments a0, a1 to set_gsa()
         add a0, zero, t5
         add a1, zero, t0
 
         addi sp, sp, -4
         stw ra, 0(sp) ; PUSH ra
-        call set_GSA
+        call set_gsa
         ldw ra, 0(sp) ; POP ra
         addi sp, sp, 4 
         ; New GSA line stored in memory
         
         bne t0, zero, loop_GSA_rows
     ret
-; END: random_gsa
+; END:random_gsa
 
 ; <----------------------- ACTION FUNCTIONS --------------------->
-; BEGIN: change_speed
+; BEGIN:change_speed
 change_speed:
     ldw t0, SPEED(zero) ; load the value of speed
     cmpeq t1, a0, zero ; t1 = a0=0?
@@ -314,17 +314,17 @@ change_speed:
     finish:
         stw t0, SPEED(zero) ; store the updated value
         ret
-; END: change_speed
+; END:change_speed
 
-; BEGIN: pause_game
+; BEGIN:pause_game
 pause_game:
     ldw t0, PAUSE(zero)
     xori t0, t0, 0x1
     stw t0, PAUSE(zero)
     ret
-; END: pause_game
+; END:pause_game
 
-; BEGIN: change_steps
+; BEGIN:change_steps
 change_steps:
     ldw t1, CURR_STEP(zero)
     add t0, zero, a2
@@ -335,9 +335,9 @@ change_steps:
     add t1, t1, t0
     stw t1, CURR_STEP(zero)
     ret
-; END: change_steps
+; END:change_steps
 
-; BEGIN: increment_seed
+; BEGIN:increment_seed
 increment_seed:
     ldw t0, CURR_STATE(zero) # Load the current state in t0
     ldw t2, SEED(zero)
@@ -360,24 +360,24 @@ increment_seed:
         add t6, t6, t5 # Compute SEED address
         ldw t7, 0(t6) # Load the SEED line
 
-        # Pass arguments a0, a1 to set_GSA()
+        # Pass arguments a0, a1 to set_gsa()
         add a0, zero, t7
         add a1, zero, t3
 
         addi sp, sp, -4
         stw ra, 0(sp) ; PUSH ra
-        call set_GSA
+        call set_gsa
         ldw ra, 0(sp) ; POP ra
         addi sp, sp, 4 
         ; New GSA line stored in memory
         
         bne t3, zero, loop_seed
         
-    jmpi endif # Go to endif
+    jmpi endseed # Go to endif
 
     random:
         cmpeqi t1, t0, RAND # elseif case t1 = t0=RAND?
-        beq t1, zero, endif # Go to endif if t1=0 
+        beq t1, zero, endseed # Go to endif if t1=0 
         
         addi t2, zero, 4
         stw t2, SEED(zero)
@@ -389,16 +389,18 @@ increment_seed:
         ldw ra, 0(sp) ; POP ra
         addi sp, sp, 4
 
-    endif: 
+    endseed: 
         ret
-; END: increment_seed
+; END:increment_seed
 
-; BEGIN: update_state
+; BEGIN:update_state
 update_state:
     cmpeq t0, a0, zero ; t0=a0=00000?
-    bne t0, zero, endif ; If a0 = 0 go to endif
+    bne t0, zero, endupd ; If a0 = 0 go to endupd
     ldw t1, CURR_STATE(zero) ; store value of current state in t1
     ldw t5, SEED(zero)
+    addi t6, zero, N_SEEDS
+    addi t6, t6, -1
 
     cmpeqi t2, t1, INIT
     bne t2, zero, init_state
@@ -412,18 +414,45 @@ update_state:
     init_state:
     addi t3, zero, 2 ; create the mask for button 1 value
     and t3, a0, t3 ; t3 = a0 and t3 -> save the value of button 1 in t3
+    srli t3, t3, 1 ; obtain the value of button 1
     bne t3, zero, change_state_run ; go to run if t3 = 1, button 1 is pressed
-    cmpeqi t3, t5, 4 ; t3=t5=4 Checking if the button 0 value = N
+    addi t7, zero, 1 ; create the mask for button 0 value
+    and t3, a0, t7 ; t3 = a0 and t3 -> save the value of button 0 in t3
+    beq t3, zero, endupd 
+    cmpeq t3, t5, t6 ; t3=t5=4 Checking if the button 0 value = N
     bne t3, zero, change_state_rand
 
     # We need to keep being in INIT state
     jmpi endupd
 
     rand_state:
-
+    addi t3, zero, 2 ; create the mask for button 1 value
+    and t3, a0, t3 ; t3 = a0 and t3 -> save the value of button 1 in t3
+    srli t3, t3, 1 ; obtain the value of button 1
+    bne t3, zero, change_state_run ; go to run if t3 = 1, button 1 is pressed
+    
+    # We need to keep being in RAND state
+    jmpi endupd
 
     run_state:
+    addi t3, zero, 8 ; create the mask for button 3 value
+    and t3, a0, t3 ; t3 = a0 and t3 -> save the value of button 3 in t3
+    srli t3, t3, 3 ; obtain the value of button 3
+    bne t3, zero, change_state_init ; go to init if t3 = 1, button 3 is pressed
+    
+    # We need to keep being in RUN state
+    jmpi endupd
 
+    change_state_init:
+        addi t4, zero, INIT
+        stw t4, CURR_STATE(zero)
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call reset_game
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4
+        jmpi endupd
+        
     change_state_run:
         addi t4, zero, RUN
         stw t4, CURR_STATE(zero)
@@ -436,45 +465,358 @@ update_state:
 
     endupd:
         ret
-; END: update_state
+; END:update_state
 
-; BEGIN: select_action
+; BEGIN:select_action
 select_action:
+    cmpeq t0, a0, zero ; t0=a0=00000?
+    bne t0, zero, endsel ; If a0 = 0 go to endif
+    ldw t0, CURR_STATE(zero) ; store value of current state in t1
+    
+    cmpeqi t1, t0, RUN
+    bne t1, zero, run_select
 
-; END: select_action
+    ### Execute INIT RAND actions
+    add t0, zero, a0 # copy value of edgecapture
+    andi t1, a0, 0x1 # value of button 0
+    srli t0, t0, 1
+    bne t1, zero, seed_action
+
+    andi t1, t0, 0x1 # value of button 1
+    srli t0, t0, 1 # value of buttons 234
+    bne t1, zero, update_action
+
+    jmpi step_action # Go to change_steps action
+
+    run_select: ; Select RUN actions
+        andi t1, a0, 0x1 # value of button 0
+        srli a0, a0, 1
+        bne t1, zero, pause_action
+
+        andi t1, a0, 0x1 # value of button 1
+        srli a0, a0, 1
+        bne t1, zero, inc_action
+
+        andi t1, a0, 0x1 # value of button 2
+        srli a0, a0, 1
+        bne t1, zero, dec_action
+
+        andi t1, a0, 0x1 # value of button 3
+        srli a0, a0, 1
+        bne t1, zero, reset_action
+
+        andi t1, a0, 0x1 # value of button 4
+        srli a0, a0, 1
+        bne t1, zero, random_action
+
+    seed_action:
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call increment_seed
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+    jmpi endsel
+
+    update_action:
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call update_state
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+    jmpi endsel
+
+    step_action:
+        # t0 = b4.b3.b2
+        # Passing arguments a0, a1, a2
+        andi a2, t0, 0x1
+        srli t0, t0, 1
+        andi a1, t0, 0x1
+        srli t0, t0, 1
+        andi a0, t0, 0x1
+
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call change_steps
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+
+    jmpi endsel
+
+    pause_action:
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call pause_game
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+    jmpi endsel
+
+    inc_action:
+        addi a0, zero, 0
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call change_speed
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+    jmpi endsel
+
+    dec_action:
+        addi a0, zero, 1
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call change_speed
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+    jmpi endsel
+    
+    reset_action:
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call reset_game
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+    jmpi endsel
+
+    random_action:
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call random_gsa
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+    jmpi endsel
+
+    endsel:
+        ret
+; END:select_action
 
 ; <----------------- UPDATE GSA ------------>
-; BEGIN: cell_fate
+; BEGIN:cell_fate
 cell_fate:
+    cmpeqi t0, a1, 1
+    beq t0, zero, dead_cell
 
-; END: cell_fate
+    cmpltui t0, a0, 2
+    bne t0, zero, alive_cell
 
-; BEGIN: find_neighbours
-find_neighbours:
-; END: find_neighbours
+    cmpltui t0, a0, 4 
+    beq t0, zero, alive_cell
 
-; BEGIN: update_gsa
+    dead_cell:
+        cmpeqi t0, a0, 3
+        beq t0, zero, end_fate
+        addi v0, zero, 1
+        jmpi end_fate
+
+    alive_cell:
+        addi v0, zero, 0
+
+    end_fate:
+        ret
+; END:cell_fate
+
+; ; BEGIN:find_neighbours
+; find_neighbours:
+;     add t7, zero, zero
+
+;     bne a0, zero, left_wall
+
+;     addi t0, zero, N_GSA_COLUMNS
+;     addi t0, t0, -1
+;     cmpeqi t0, a0, t0
+;     bne t0, zero, right_wall
+    
+;     bne a1, zero, top_wall
+
+;     addi t0, zero, N_GSA_LINES
+;     addi t0, t0, -1
+;     cmpeqi t0, a1, t0
+;     bne t0, zero, bottom_wall
+
+;     ; Default case found
+
+;     jmpi endfind
+
+;     left_wall:
+;         bne a1, zero, left_top_corner
+;         jmpi
+    
+    
+;     right_wall:
+
+;     top_wall:
+;         bne a0, zero, left_top_corner
+
+        
+
+    
+;     bottom_wall:
+
+;     left_top_corner: 
+;         addi t1, a1, 1
+        
+;         addi sp, sp, -8
+;         stw a0, 0(sp)
+;         stw ra, 0(sp)
+;         addi a0, zero, t1
+;         call get_gsa
+;         ldw ra, 0(sp)
+;         ldw a0, 0(sp)
+;         addi sp, sp, 8
+;         ; GSA line in register v0
+;         addi t2, zero, v0
+        
+
+;     right_top_corner:
+
+;     left_bottom_corner:
+;         addi t1, a1, -1
+
+;         addi sp, sp, -8
+;         stw a0, 0(sp)
+;         stw ra, 0(sp) ; PUSH ra
+;         addi a0, zero, t1
+;         call get_gsa
+;         ldw ra, 0(sp) ; POP ra
+;         ldw a0, 0(sp) 
+;         addi sp, sp, 8
+;         ; GSA line in register v0
+
+;         addi t2, zero, v0
+;         addi t3, zero, 0xC0
+;         and t2, t2, t3
+;         srli t2, t2, 9
+
+
+;     right_bottom_corner:
+
+
+    
+;     endfind:
+;         ret
+; ; END:find_neighbours
+
+; BEGIN:update_gsa
 update_gsa:
-; END: update_gsa
+; END:update_gsa
 
-; BEGIN: mask
+; BEGIN:mask
 mask:
-; END: mask
+; END:mask
 
 ; <----------------- INPUT & STEP HANDLERS --------->
-; BEGIN: get_input
+; BEGIN:get_input
 get_input:
-; END: get_input
+    ldw v0, BUTTONS+4(zero)
+    stw zero, BUTTONS+4(zero)
+; END:get_input
 
-; BEGIN: decrement_step
+; BEGIN:decrement_step
 decrement_step:
-; END: decrement_step
+    ldw t0, CURR_STATE(zero) ; store value of current state in t0
+    ldw t1, PAUSE(zero); 1 if game is paused
+    xori t1, t1, 0x1 ; 1 if game is running
+    ldw t2, CURR_STEP(zero) ; store  value of steps
+        
+    cmpeqi t4, t0, RUN
+    and t4, t4, t1
+    bne t4, zero, run_step
+
+    display: ; Display number of steps on 7SEG
+        andi t4, t2, 0xF
+        srli t2, t2, 4
+        slli t4, t4, 2
+        stw t5, font_data(t4)
+        ldw t5, SEVEN_SEGS+12(zero)
+
+        andi t4, t2, 0xF
+        srli t2, t2, 4
+        slli t4, t4, 2
+        stw t5, font_data(t4)
+        ldw t5, SEVEN_SEGS+8(zero)
+
+        
+        andi t4, t2, 0xF
+        slli t4, t4, 2
+        stw t5, font_data(t4)
+        ldw t5, SEVEN_SEGS+4(zero)
+
+        # Return value 0
+        addi v0, zero, 0
+
+    jmpi endstep
+
+    run_step:
+        cmpeqi t3, t2, 0
+        beq t3, zero, done
+
+        addi t2, t2, -1
+        stw t2, CURR_STEP(zero)
+        jmpi display
+
+    done: ; No steps left to execute
+        addi v0, zero, 1
+        jmpi endstep
+    
+    endstep:
+        ret
+
+    
+; END:decrement_step
 
 
 ; <--------------- RESET --------->
-; BEGIN: reset_game
+; BEGIN:reset_game
 reset_game:
-; END: reset_game
+    ; Initialize current step to 1
+    addi t0, zero, 1
+    stw t0, CURR_STEP(zero)
+    
+    ; Initialize step display
+    ldw t1, font_data(zero)
+    ldw t2, font_data+4(zero)
+    stw t1, SEVEN_SEGS+4(zero)
+    stw t1, SEVEN_SEGS+8(zero)
+    stw t2, SEVEN_SEGS+12(zero)
+    
+    ; Initialize seed
+    addi t0, zero, 0
+    stw t0, SEED(zero)
+    ; Initialize GSA with SEED0
+    # Update GSA with new SEED
+    addi t3, zero, N_GSA_LINES    
+    loop_seed0:
+        addi t3, t3, -1 # Decrement row counter
+        slli t6, t3, 2 # Word-allign row number
+        addi t6, t6, seed0 # Compute SEED address
+        ldw t7, 0(t6) # Load the SEED line
+
+        # Pass arguments a0, a1 to set_gsa()
+        add a0, zero, t7
+        add a1, zero, t3
+
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call set_gsa
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+        ; New GSA line stored in memory
+        
+        bne t3, zero, loop_seed0
+    ; Draw Seed0 on LEDS
+    addi sp, sp, -4
+    stw ra, 0(sp) ; PUSH ra
+    call draw_gsa
+    ldw ra, 0(sp) ; POP ra
+    addi sp, sp, 4
+
+    ; Initialize STATE and GSA_ID
+    stw t0, CURR_STATE(zero)
+    stw t0, GSA_ID(zero)
+    ; Initialize PAUSE and SPEED
+    addi t0, zero, 1
+    stw t0, PAUSE(zero)
+    stw t0, SPEED(zero)
+    ret
+; END:reset_game
 
 font_data:
     .word 0xFC ; 0
