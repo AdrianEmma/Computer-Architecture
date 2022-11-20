@@ -29,7 +29,32 @@
     .equ RUNNING, 0x01                  ; game running value
 
 main:
-    test_GSA
+    addi sp, zero, CUSTOM_VAR_END
+    
+    call pause_game
+    call pause_game
+
+    addi a0, zero, 1
+    addi a1, zero, 0
+    addi a2, zero, 1
+    call change_steps
+
+    addi a0, zero, 0
+    addi a1, zero, 1
+    addi a2, zero, 1
+    call change_steps
+
+    ldw t0, seed0+12(zero)
+	addi t1, zero, seed1
+	ldw t2, 8(t1)
+	ldw t2, 24(t1)
+	addi t2, zero, 5
+	slli t2, t2, 2
+	addi t2, t2, seed1
+	ldw t3, 0(t2)
+    
+    call increment_seed
+    call increment_seed
 
 test_GSA:
     addi sp, zero, CUSTOM_VAR_END
@@ -271,7 +296,7 @@ random_gsa:
 
 ; <----------------------- ACTION FUNCTIONS --------------------->
 ; BEGIN: change_speed
-change speed:
+change_speed:
     ldw t0, SPEED(zero) ; load the value of speed
     cmpeq t1, a0, zero ; t1 = a0=0?
     beq t1, zero, decrement ; go to decrement if t1 = 0 
@@ -304,9 +329,9 @@ change_steps:
     ldw t1, CURR_STEP(zero)
     add t0, zero, a2
     slli t0, t0, 4
-    add t0, zero, a1
+    add t0, t0, a1
     slli t0, t0, 4
-    add t0, zer0, a0
+    add t0, t0, a0
     add t1, t1, t0
     stw t1, CURR_STEP(zero)
     ret
@@ -324,27 +349,29 @@ increment_seed:
     stw t2, SEED(zero) # Store updated game seed
     
     # Select correct SEED index
-    cmpeqi t4, t2, 0
-    addi t5, zero, seed0 
-    bne t4, zero, sfound
-
-    cmpeqi t4, t2, 1
-    addi t5, zero, seed0 
-    bne t4, zero, sfound
-
-    cmpeqi t4, t2, 2
-    addi t5, zero, seed0 
-    bne t4, zero, sfound
-
-    cmpeqi t4, t2, 3
-    addi t5, zero, seed0 
-    bne t4, zero, sfound
-
-    sfound:
+    slli t5, t2, 2
+    ldw t5, SEEDS(t5)
     
     # Update GSA with new SEED
     addi t3, zero, N_GSA_LINES    
-    
+    loop_seed:
+        addi t3, t3, -1 # Decrement row counter
+        slli t6, t3, 2 # Word-allign row number
+        add t6, t6, t5 # Compute SEED address
+        ldw t7, 0(t6) # Load the SEED line
+
+        # Pass arguments a0, a1 to set_GSA()
+        add a0, zero, t7
+        add a1, zero, t3
+
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call set_GSA
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+        ; New GSA line stored in memory
+        
+        bne t3, zero, loop_seed
         
     jmpi endif # Go to endif
 
@@ -368,7 +395,7 @@ increment_seed:
 
 ; BEGIN: update_state
 update_state:
-    cmpeqi t0, a0, zero ; t0=a0=00000?
+    cmpeq t0, a0, zero ; t0=a0=00000?
     bne t0, zero, endif ; If a0 = 0 go to endif
     ldw t1, CURR_STATE(zero) ; store value of current state in t1
     ldw t5, SEED(zero)
@@ -377,37 +404,37 @@ update_state:
     bne t2, zero, init_state
 
     cmpeqi t2, t1, RAND
-    bne t2, zero rand_state
+    bne t2, zero, rand_state
 
     cmpeqi t2, t1, RUN
-    bne t2, zero run_state
+    bne t2, zero, run_state
     
     init_state:
     addi t3, zero, 2 ; create the mask for button 1 value
     and t3, a0, t3 ; t3 = a0 and t3 -> save the value of button 1 in t3
-    bne t3, zero, change_state_to_run ; go to run if t3 = 1, button 1 is pressed
+    bne t3, zero, change_state_run ; go to run if t3 = 1, button 1 is pressed
     cmpeqi t3, t5, 4 ; t3=t5=4 Checking if the button 0 value = N
-    bne t3, zero, change_state_to_rand
+    bne t3, zero, change_state_rand
 
     # We need to keep being in INIT state
-    jmpi endif
+    jmpi endupd
 
     rand_state:
 
 
     run_state:
 
-    change_state_to_run:
+    change_state_run:
         addi t4, zero, RUN
         stw t4, CURR_STATE(zero)
-        jmpi endif
+        jmpi endupd
 
     change_state_rand:
         addi t4, zero, RAND
         stw t4, CURR_STATE(zero)
-        jmpi endif
+        jmpi endupd
 
-    endif:
+    endupd:
         ret
 ; END: update_state
 
@@ -415,6 +442,40 @@ update_state:
 select_action:
 
 ; END: select_action
+
+; <----------------- UPDATE GSA ------------>
+; BEGIN: cell_fate
+cell_fate:
+
+; END: cell_fate
+
+; BEGIN: find_neighbours
+find_neighbours:
+; END: find_neighbours
+
+; BEGIN: update_gsa
+update_gsa:
+; END: update_gsa
+
+; BEGIN: mask
+mask:
+; END: mask
+
+; <----------------- INPUT & STEP HANDLERS --------->
+; BEGIN: get_input
+get_input:
+; END: get_input
+
+; BEGIN: decrement_step
+decrement_step:
+; END: decrement_step
+
+
+; <--------------- RESET --------->
+; BEGIN: reset_game
+reset_game:
+; END: reset_game
+
 font_data:
     .word 0xFC ; 0
     .word 0x60 ; 1
