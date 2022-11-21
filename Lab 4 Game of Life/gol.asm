@@ -31,30 +31,39 @@
 main:
     addi sp, zero, CUSTOM_VAR_END
     
-    call pause_game
-    call pause_game
+    main_loop:
+        call reset_game()
+        
+        ; edgecapture
+        call get_input()
+        addi s0, v0, 0
+        
+        ; done register
+        addi s1, zero, 0
 
-    addi a0, zero, 1
-    addi a1, zero, 0
-    addi a2, zero, 1
-    call change_steps
+        inner_loop:
+            addi a0, s0, 0
+            call select_action
 
-    addi a0, zero, 0
-    addi a1, zero, 1
-    addi a2, zero, 1
-    call change_steps
+            call update_state
 
-    ldw t0, seed0+12(zero)
-	addi t1, zero, seed1
-	ldw t2, 8(t1)
-	ldw t2, 24(t1)
-	addi t2, zero, 5
-	slli t2, t2, 2
-	addi t2, t2, seed1
-	ldw t3, 0(t2)
-    
-    call increment_seed
-    call increment_seed
+            call update_gsa
+
+            call mask
+
+            call draw_gsa
+
+            call wait
+
+            call decrement_step
+            addi s1, v0, 0
+
+            call get_input
+            addi s0, v0, 0
+
+            beq s1, zero, inner_loop
+
+        jmpi main_loop
 
 test_GSA:
     addi sp, zero, CUSTOM_VAR_END
@@ -91,11 +100,38 @@ test_GSA:
     call get_gsa
     call draw_gsa
 
-test_speed:
+test_actions:
     addi t0, zero, 5
     stw t0, SPEED(zero)
     addi a0, zero, 1
     call change_speed
+    
+    addi sp, zero, CUSTOM_VAR_END
+    
+    call pause_game
+    call pause_game
+
+    addi a0, zero, 1
+    addi a1, zero, 0
+    addi a2, zero, 1
+    call change_steps
+
+    addi a0, zero, 0
+    addi a1, zero, 1
+    addi a2, zero, 1
+    call change_steps
+
+    ldw t0, seed0+12(zero)
+	addi t1, zero, seed1
+	ldw t2, 8(t1)
+	ldw t2, 24(t1)
+	addi t2, zero, 5
+	slli t2, t2, 2
+	addi t2, t2, seed1
+	ldw t3, 0(t2)
+    
+    call increment_seed
+    call increment_seed
 
 ; BEGIN:clear_leds
 clear_leds:
@@ -613,93 +649,287 @@ cell_fate:
         ret
 ; END:cell_fate
 
-; ; BEGIN:find_neighbours
-; find_neighbours:
-;     add t7, zero, zero
+; BEGIN:find_neighbours
+find_neighbours:
+    ; Compute inspected value
+    addi sp, sp, -8
+    stw a0, 0(sp) # PUSH x arg
+    stw ra, 0(sp) # PUSH return
+    add a0, zero, a1
+    call get_gsa ; v0 contains line
+    ldw ra, 0(sp) # POP return
+    ldw a0, 0(sp) # POP x arg
+    addi sp, sp, 8
+    ; Line above inspected -> t5
+    ; Inspected line -> t6
+    ; Line below inspected -> t7
+    addi t6, v0, 0 
 
-;     bne a0, zero, left_wall
+    srl v1, v0, a0
+    andi v1, v1, 0x1
+    ; v1 stores inspected cell
 
-;     addi t0, zero, N_GSA_COLUMNS
-;     addi t0, t0, -1
-;     cmpeqi t0, a0, t0
-;     bne t0, zero, right_wall
+    ; Initialize counter of neighbours
+    addi t0, zero, 0
+
+    ; IF x=0: >-< x-1 not allowed
+    beq a0, zero, left_wall
+
+    ; ELIF x=11: >-< x+1 not allowed
+    cmpeqi t1, a0, N_GSA_COLUMNS-1
+    bne t1, zero, right_wall
     
-;     bne a1, zero, top_wall
-
-;     addi t0, zero, N_GSA_LINES
-;     addi t0, t0, -1
-;     cmpeqi t0, a1, t0
-;     bne t0, zero, bottom_wall
-
-;     ; Default case found
-
-;     jmpi endfind
-
-;     left_wall:
-;         bne a1, zero, left_top_corner
-;         jmpi
+    ; ELSE (0<x<11): >-< both allowed
+    ; check({x+1,y})
+    addi t1, a0, -1
+    srl t1, t6, t1
+    andi t1, t1, 0x1
+    addi t0, t0, t1
     
-    
-;     right_wall:
+    ; check({x-1,y})
+    addi t1, a0, 1
+    srl t1, t6, t1
+    andi t1, t1, 0x1
+    addi t0, t0, t1
 
-;     top_wall:
-;         bne a0, zero, left_top_corner
+    ; IF y!=0: check({x-1,y-1}{x,y-1}{x+1,y-1})
+    bne a1, zero, x_top_wall
 
+    ; IF y!=7: check({x-1,y+1}{x,y+1}{x+1,y+1})
+    cmpnei t1, a1, N_GSA_LINES-1
+    bne t1, zero, x_bottom_wall
+
+    jmpi end_find
+
+    x_top_wall:
+        ; Compute line above
+        addi sp, sp, -8
+        stw a0, 0(sp) # PUSH x arg
+        stw ra, 0(sp) # PUSH return
+        addi a0, a1, -1
+        call get_gsa ; v0 contains line
+        ldw ra, 0(sp) # POP return
+        ldw a0, 0(sp) # POP x arg
+        addi sp, sp, 8
+
+        ; check({x+1,y-1})
+        addi t1, a0, -1
+        srl t1, v0, t1
+        andi t1, t1, 0x1
+        addi t0, t0, t1
+
+        ; check({x,y-1})
+        srl t1, v0, a0
+        andi t1, t1, 0x1
+        addi t0, t0, t1
+
+        ; check({x-1,y-1})
+        addi t1, a0, 1
+        srl t1, v0, t1
+        andi t1, t1, 0x1
+        addi t0, t0, t1
         
+        ; IF y!=7: also do x_bottom_wall
+        cmpnei t1, a1, N_GSA_LINES-1
+        bne t1, zero, x_bottom_wall
 
-    
-;     bottom_wall:
+        jmpi end_find
 
-;     left_top_corner: 
-;         addi t1, a1, 1
+    x_bottom_wall:
+        ; Compute line below
+        addi sp, sp, -8
+        stw a0, 0(sp) # PUSH x arg
+        stw ra, 0(sp) # PUSH return
+        addi a0, a1, 1
+        call get_gsa ; v0 contains line
+        ldw ra, 0(sp) # POP return
+        ldw a0, 0(sp) # POP x arg
+        addi sp, sp, 8
+
+        ; check({x+1,y+1})
+        addi t1, a0, -1
+        srl t1, v0, t1
+        andi t1, t1, 0x1
+        addi t0, t0, t1
+
+        ; check({x,y+1})
+        srl t1, v0, a0
+        andi t1, t1, 0x1
+        addi t0, t0, t1
+
+        ; check({x-1,y+1})
+        addi t1, a0, 1
+        srl t1, v0, t1
+        andi t1, t1, 0x1
+        addi t0, t0, t1
+
+        jmpi end_find
+
+    left_wall:
+        ; check({x+1,y})
+        addi t1, a0, -1
+        srl t1, t6, t1
+        andi t1, t1, 0x1
+        addi t0, t0, t1
+
+        ; IF y!=0: check({x,y-1}{x+1,y-1})
+        bne a1, zero, x_top_left
+
+        ; IF y!=7: check({x,y+1}{x+1,y+1})
+        cmpnei t1, a1, N_GSA_LINES-1
+        bne t1, zero, x_bottom_left
+
+        jmpi end_find
+
+        x_top_left:
+            ; Compute line above
+            addi sp, sp, -8
+            stw a0, 0(sp) # PUSH x arg
+            stw ra, 0(sp) # PUSH return
+            addi a0, a1, -1
+            call get_gsa ; v0 contains line
+            ldw ra, 0(sp) # POP return
+            ldw a0, 0(sp) # POP x arg
+            addi sp, sp, 8
+
+            ; check({x+1,y-1})
+            addi t1, a0, -1
+            srl t1, v0, t1
+            andi t1, t1, 0x1
+            addi t0, t0, t1
+
+            ; check({x,y-1})
+            srl t1, v0, a0
+            andi t1, t1, 0x1
+            addi t0, t0, t1
+            
+            ; IF y!=7: also do x_bottom
+            cmpnei t1, a1, N_GSA_LINES-1
+            bne t1, zero, x_bottom_left
+
+            jmpi end_find
+
+        x_bottom_left:
+            ; Compute line below
+            addi sp, sp, -8
+            stw a0, 0(sp) # PUSH x arg
+            stw ra, 0(sp) # PUSH return
+            addi a0, a1, 1
+            call get_gsa ; v0 contains line
+            ldw ra, 0(sp) # POP return
+            ldw a0, 0(sp) # POP x arg
+            addi sp, sp, 8
+
+            ; check({x+1,y+1})
+            addi t1, a0, -1
+            srl t1, v0, t1
+            andi t1, t1, 0x1
+            addi t0, t0, t1
+
+            ; check({x,y+1})
+            srl t1, v0, a0
+            andi t1, t1, 0x1
+            addi t0, t0, t1
+
+            jmpi end_find
+
+    right_wall:
+        ; check({x-1,y})
+        addi t1, a0, 1
+        srl t1, t6, t1
+        andi t1, t1, 0x1
+        addi t0, t0, t1
         
-;         addi sp, sp, -8
-;         stw a0, 0(sp)
-;         stw ra, 0(sp)
-;         addi a0, zero, t1
-;         call get_gsa
-;         ldw ra, 0(sp)
-;         ldw a0, 0(sp)
-;         addi sp, sp, 8
-;         ; GSA line in register v0
-;         addi t2, zero, v0
-        
+        ; IF y!=0: check({x-1,y-1}{x,y-1})
+        bne a1, zero, x_top_right
 
-;     right_top_corner:
+        ; IF y!=7: check({x-1,y+1}{x,y+1})
+        cmpnei t1, a1, N_GSA_LINES-1
+        bne t1, zero, x_bottom_right
 
-;     left_bottom_corner:
-;         addi t1, a1, -1
+        jmpi end_find
 
-;         addi sp, sp, -8
-;         stw a0, 0(sp)
-;         stw ra, 0(sp) ; PUSH ra
-;         addi a0, zero, t1
-;         call get_gsa
-;         ldw ra, 0(sp) ; POP ra
-;         ldw a0, 0(sp) 
-;         addi sp, sp, 8
-;         ; GSA line in register v0
+        x_top_right:
+            ; Compute line above
+            addi sp, sp, -8
+            stw a0, 0(sp) # PUSH x arg
+            stw ra, 0(sp) # PUSH return
+            addi a0, a1, -1
+            call get_gsa ; v0 contains line
+            ldw ra, 0(sp) # POP return
+            ldw a0, 0(sp) # POP x arg
+            addi sp, sp, 8
 
-;         addi t2, zero, v0
-;         addi t3, zero, 0xC0
-;         and t2, t2, t3
-;         srli t2, t2, 9
+            ; check({x,y-1})
+            srl t1, v0, a0
+            andi t1, t1, 0x1
+            addi t0, t0, t1
+            
+            ; check({x-1,y-1})
+            addi t1, a0, 1
+            srl t1, v0, t1
+            andi t1, t1, 0x1
+            addi t0, t0, t1
 
+            ; IF y!=7: also do x_bottom
+            cmpnei t1, a1, N_GSA_LINES-1
+            bne t1, zero, x_bottom_right
 
-;     right_bottom_corner:
+            jmpi end_find
 
+        x_bottom_right:
+            ; Compute line below
+            addi sp, sp, -8
+            stw a0, 0(sp) # PUSH x arg
+            stw ra, 0(sp) # PUSH return
+            addi a0, a1, 1
+            call get_gsa ; v0 contains line
+            ldw ra, 0(sp) # POP return
+            ldw a0, 0(sp) # POP x arg
+            addi sp, sp, 8
 
-    
-;     endfind:
-;         ret
-; ; END:find_neighbours
+            ; check({x,y+1})
+            srl t1, v0, a0
+            andi t1, t1, 0x1
+            addi t0, t0, t1
+            
+            ; check({x-1,y+1})
+            addi t1, a0, 1
+            srl t1, v0, t1
+            andi t1, t1, 0x1
+            addi t0, t0, t1
+
+            jmpi end_find
+
+    end_find:
+        # Return neighbor counter in v0
+        addi v0, zero, t0
+        ret
+
+; END:find_neighbours
 
 ; BEGIN:update_gsa
 update_gsa:
+    ldw t0, PAUSE(zero)
+    bne t0, zero, endgsa
+        ; loop through x-coordinates
+            ; loop through y-coordinates
+                ; ln, state = find_neighbours(x,y)
+                ; new = cell_fate(ln, state)
+                ; replace(new)
+    endgsa:
+        ldw t0, GSA_ID(zero)
+        xori t0, t0, 0x1    
+        stw t0, GSA_ID(zero)
+        ret
 ; END:update_gsa
 
 ; BEGIN:mask
 mask:
+    ldw t0, SEED(zero)
+    ldw t1, MASKS(t0)
+    ; apply mask placed in t1 #TODO
+    ret
 ; END:mask
 
 ; <----------------- INPUT & STEP HANDLERS --------->
