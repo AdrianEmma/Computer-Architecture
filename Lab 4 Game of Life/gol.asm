@@ -32,10 +32,18 @@ main:
     addi sp, zero, CUSTOM_VAR_END
     
     main_loop:
-        call reset_game()
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call reset_game
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
         
         ; edgecapture
-        call get_input()
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call get_input
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
         addi s0, v0, 0
         
         ; done register
@@ -43,22 +51,55 @@ main:
 
         inner_loop:
             addi a0, s0, 0
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call select_action
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
 
+            addi a0, s0, 0
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call update_state
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
 
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call update_gsa
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
 
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call mask
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
 
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call draw_gsa
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
 
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call wait
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
 
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call decrement_step
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
             addi s1, v0, 0
 
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
             call get_input
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
             addi s0, v0, 0
 
             beq s1, zero, inner_loop
@@ -226,7 +267,7 @@ set_gsa:
 draw_gsa:
     ; Save s registers - callee saved
     addi sp, sp, -4
-    stw s1, 4(sp)
+    stw s1, 0(sp)
     ; _______________________________
 
 
@@ -392,6 +433,7 @@ increment_seed:
     addi t3, zero, N_GSA_LINES    
     loop_seed:
         addi t3, t3, -1 # Decrement row counter
+
         slli t6, t3, 2 # Word-allign row number
         add t6, t6, t5 # Compute SEED address
         ldw t7, 0(t6) # Load the SEED line
@@ -518,10 +560,6 @@ select_action:
     srli t0, t0, 1
     bne t1, zero, seed_action
 
-    andi t1, t0, 0x1 # value of button 1
-    srli t0, t0, 1 # value of buttons 234
-    bne t1, zero, update_action
-
     jmpi step_action # Go to change_steps action
 
     run_select: ; Select RUN actions
@@ -534,12 +572,8 @@ select_action:
         bne t1, zero, inc_action
 
         andi t1, a0, 0x1 # value of button 2
-        srli a0, a0, 1
+        srli a0, a0, 2
         bne t1, zero, dec_action
-
-        andi t1, a0, 0x1 # value of button 3
-        srli a0, a0, 1
-        bne t1, zero, reset_action
 
         andi t1, a0, 0x1 # value of button 4
         srli a0, a0, 1
@@ -550,15 +584,7 @@ select_action:
         stw ra, 0(sp) ; PUSH ra
         call increment_seed
         ldw ra, 0(sp) ; POP ra
-        addi sp, sp, 4 
-    jmpi endsel
-
-    update_action:
-        addi sp, sp, -4
-        stw ra, 0(sp) ; PUSH ra
-        call update_state
-        ldw ra, 0(sp) ; POP ra
-        addi sp, sp, 4 
+        addi sp, sp, 4  
     jmpi endsel
 
     step_action:
@@ -600,14 +626,6 @@ select_action:
         addi sp, sp, -4
         stw ra, 0(sp) ; PUSH ra
         call change_speed
-        ldw ra, 0(sp) ; POP ra
-        addi sp, sp, 4 
-    jmpi endsel
-    
-    reset_action:
-        addi sp, sp, -4
-        stw ra, 0(sp) ; PUSH ra
-        call reset_game
         ldw ra, 0(sp) ; POP ra
         addi sp, sp, 4 
     jmpi endsel
@@ -684,13 +702,13 @@ find_neighbours:
     addi t1, a0, -1
     srl t1, t6, t1
     andi t1, t1, 0x1
-    addi t0, t0, t1
+    add t0, t0, t1
     
     ; check({x-1,y})
     addi t1, a0, 1
     srl t1, t6, t1
     andi t1, t1, 0x1
-    addi t0, t0, t1
+    add t0, t0, t1
 
     ; IF y!=0: check({x-1,y-1}{x,y-1}{x+1,y-1})
     bne a1, zero, x_top_wall
@@ -716,18 +734,18 @@ find_neighbours:
         addi t1, a0, -1
         srl t1, v0, t1
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
 
         ; check({x,y-1})
         srl t1, v0, a0
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
 
         ; check({x-1,y-1})
         addi t1, a0, 1
         srl t1, v0, t1
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
         
         ; IF y!=7: also do x_bottom_wall
         cmpnei t1, a1, N_GSA_LINES-1
@@ -750,18 +768,18 @@ find_neighbours:
         addi t1, a0, -1
         srl t1, v0, t1
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
 
         ; check({x,y+1})
         srl t1, v0, a0
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
 
         ; check({x-1,y+1})
         addi t1, a0, 1
         srl t1, v0, t1
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
 
         jmpi end_find
 
@@ -770,7 +788,7 @@ find_neighbours:
         addi t1, a0, -1
         srl t1, t6, t1
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
 
         ; IF y!=0: check({x,y-1}{x+1,y-1})
         bne a1, zero, x_top_left
@@ -796,12 +814,12 @@ find_neighbours:
             addi t1, a0, -1
             srl t1, v0, t1
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
 
             ; check({x,y-1})
             srl t1, v0, a0
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
             
             ; IF y!=7: also do x_bottom
             cmpnei t1, a1, N_GSA_LINES-1
@@ -824,12 +842,12 @@ find_neighbours:
             addi t1, a0, -1
             srl t1, v0, t1
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
 
             ; check({x,y+1})
             srl t1, v0, a0
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
 
             jmpi end_find
 
@@ -838,7 +856,7 @@ find_neighbours:
         addi t1, a0, 1
         srl t1, t6, t1
         andi t1, t1, 0x1
-        addi t0, t0, t1
+        add t0, t0, t1
         
         ; IF y!=0: check({x-1,y-1}{x,y-1})
         bne a1, zero, x_top_right
@@ -863,13 +881,13 @@ find_neighbours:
             ; check({x,y-1})
             srl t1, v0, a0
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
             
             ; check({x-1,y-1})
             addi t1, a0, 1
             srl t1, v0, t1
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
 
             ; IF y!=7: also do x_bottom
             cmpnei t1, a1, N_GSA_LINES-1
@@ -891,19 +909,19 @@ find_neighbours:
             ; check({x,y+1})
             srl t1, v0, a0
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
             
             ; check({x-1,y+1})
             addi t1, a0, 1
             srl t1, v0, t1
             andi t1, t1, 0x1
-            addi t0, t0, t1
+            add t0, t0, t1
 
             jmpi end_find
 
     end_find:
         # Return neighbor counter in v0
-        addi v0, zero, t0
+        add v0, zero, t0
         ret
 
 ; END:find_neighbours
@@ -912,23 +930,118 @@ find_neighbours:
 update_gsa:
     ldw t0, PAUSE(zero)
     bne t0, zero, endgsa
-        ; loop through x-coordinates
-            ; loop through y-coordinates
-                ; ln, state = find_neighbours(x,y)
-                ; new = cell_fate(ln, state)
-                ; replace(new)
-    endgsa:
+    
+    
+    ; y-coordinate iterator
+    addi t2, zero, N_GSA_LINES
+
+    loop_y:
+        ; decrement y-coord
+        addi t2, t2, -1
+
+        addi t7, zero, 0
+        
+        ; x-coordinate iterator
+        addi t3, zero, N_GSA_COLUMNS
+        loop_x:
+            addi t3, t3, -1
+            ; cells evaluated one by one
+            ; Pass arguments (x,y) to find_neighbours
+            addi a0, t3, 0
+            addi a1, t2, 0
+
+            ; Call find_neighbours procedure on (x,y)
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
+            call find_neighbours
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
+            ; Return (living neighbors, state of cell) in (v0,v1)
+
+            ; Pass arguments (living, state) to cell_fate
+            addi a0, v0, 0
+            addi a1, v1, 0
+
+            ; Call cell_fate procedure for (x,y)
+            addi sp, sp, -4
+            stw ra, 0(sp) ; PUSH ra
+            call cell_fate
+            ldw ra, 0(sp) ; POP ra
+            addi sp, sp, 4 
+            ; Return new cell fate in v0
+                
+            ; Concatenate new cell fate
+            slli t7, t7, 1
+            add t7, t7, v0
+
+            bne t3, zero, loop_x
+
+        ; Select the other GSA (flip ID)
         ldw t0, GSA_ID(zero)
         xori t0, t0, 0x1    
         stw t0, GSA_ID(zero)
+
+        ; Pass new line to set_gsa
+        addi a0, t7, 0
+        addi a1, t2, 0
+
+        ; Call set_gsa
+        addi sp, sp, -4
+        stw ra, 0(sp) ; PUSH ra
+        call set_gsa
+        ldw ra, 0(sp) ; POP ra
+        addi sp, sp, 4 
+
+        ; Select previous GSA (flip ID back)
+        ldw t0, GSA_ID(zero)
+        xori t0, t0, 0x1    
+        stw t0, GSA_ID(zero)
+
+        bne t2, zero, loop_y
+    endgsa:
         ret
 ; END:update_gsa
 
 ; BEGIN:mask
 mask:
     ldw t0, SEED(zero)
-    ldw t1, MASKS(t0)
-    ; apply mask placed in t1 #TODO
+    slli t0, t0, 2
+    ldw t4, MASKS(t0)
+    
+    ; Line iterator
+    addi t3, zero, N_GSA_LINES
+
+    loop_mask:
+        addi t3, t3, -1
+
+        ; Pass argument to get_gsa
+        addi a0, t3, 0
+
+        ; Call get_gsa with line in v0
+        addi sp, sp, -4
+        stw ra, 0(sp)
+        call get_gsa
+        ldw ra, 0(sp)
+        addi sp, sp, 4
+        
+        ; Line in found mask
+        slli t0, t3, 2
+        add t0, t4, t0
+        ; Obtain line in mask
+        ldw t1, 0(t0)
+        ; Pass masked line to set_gsa
+        and a0, t1, v0
+        ; Pass coordinate to set_gsa
+        addi a1, t3, 0
+        
+        ; Call set_gsa 
+        addi sp, sp, -4
+        stw ra, 0(sp)
+        call set_gsa
+        ldw ra, 0(sp)
+        addi sp, sp, 4
+
+        bne t3, zero, loop_mask
     ret
 ; END:mask
 
@@ -937,6 +1050,7 @@ mask:
 get_input:
     ldw v0, BUTTONS+4(zero)
     stw zero, BUTTONS+4(zero)
+    ret
 ; END:get_input
 
 ; BEGIN:decrement_step
@@ -1039,6 +1153,7 @@ reset_game:
     addi sp, sp, 4
 
     ; Initialize STATE and GSA_ID
+    addi t0, zero, 0
     stw t0, CURR_STATE(zero)
     stw t0, GSA_ID(zero)
     ; Initialize PAUSE and SPEED
