@@ -30,20 +30,26 @@
 
 main:
     addi sp, zero, CUSTOM_VAR_END
+	
+	addi t0, zero, 1
+	stw t0, RANDOM_NUM(zero)
+
+    addi t0, zero, 3
+    stw t0, SEED(zero)
+
+    addi t0, zero, 1
+    stw t0, CURR_STATE(zero)
+
+    call increment_seed
+
+main_algorithm:
+    addi sp, zero, CUSTOM_VAR_END
     
     main_loop:
-        addi sp, sp, -4
-        stw ra, 0(sp) ; PUSH ra
         call reset_game
-        ldw ra, 0(sp) ; POP ra
-        addi sp, sp, 4 
-        
+
         ; edgecapture
-        addi sp, sp, -4
-        stw ra, 0(sp) ; PUSH ra
         call get_input
-        ldw ra, 0(sp) ; POP ra
-        addi sp, sp, 4 
         addi s0, v0, 0
         
         ; done register
@@ -51,55 +57,23 @@ main:
 
         inner_loop:
             addi a0, s0, 0
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
             call select_action
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
-
+        
             addi a0, s0, 0
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
             call update_state
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
-
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
+        
             call update_gsa
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
-
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
+        
             call mask
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
-
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
+        
             call draw_gsa
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
-
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
+        
             call wait
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
-
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
+        
             call decrement_step
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
             addi s1, v0, 0
 
-            addi sp, sp, -4
-            stw ra, 0(sp) ; PUSH ra
             call get_input
-            ldw ra, 0(sp) ; POP ra
-            addi sp, sp, 4 
             addi s0, v0, 0
 
             beq s1, zero, inner_loop
@@ -421,7 +395,12 @@ increment_seed:
     cmpeqi t1, t0, INIT # If case t1 = t0=INIT?
     beq t1, zero, random
     
-    # IF block
+    # IF state INIT and SEED = N_SEEDS-1
+    addi t1, t2, 1 ; compute next possible seed
+    cmpeqi t1, t1, N_SEEDS ; t1 = SEED+1=N_SEEDS?
+    bne t1, zero, random
+
+    # IF state INIT
     addi t2, t2, 1 # Increment game seed
     stw t2, SEED(zero) # Store updated game seed
     
@@ -454,10 +433,7 @@ increment_seed:
     jmpi endseed # Go to endif
 
     random:
-        cmpeqi t1, t0, RAND # elseif case t1 = t0=RAND?
-        beq t1, zero, endseed # Go to endif if t1=0 
-        
-        addi t2, zero, 4
+        addi t2, zero, N_SEEDS
         stw t2, SEED(zero)
         
         # ELSEIF block
