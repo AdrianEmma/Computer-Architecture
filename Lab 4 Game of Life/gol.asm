@@ -42,6 +42,10 @@ main:
 
     call increment_seed
 
+    addi a0, zero, 4 ; neighbours
+    addi a1, zero, 1 ; cell state
+    call cell_fate
+
 main_algorithm:
     addi sp, zero, CUSTOM_VAR_END
     
@@ -621,22 +625,29 @@ select_action:
 ; <----------------- UPDATE GSA ------------>
 ; BEGIN:cell_fate
 cell_fate:
-    cmpeqi t0, a1, 1
-    beq t0, zero, dead_cell
+    ; Start with same state (overwrite if needed)
+    add v0, zero, a1
 
-    cmpltui t0, a0, 2
-    bne t0, zero, alive_cell
+    ; Check the examined cell state
+    cmpeqi t0, a1, 1 ; t0 = a1=1? #Examined cell state
+    beq t0, zero, dead_cell # IF cell is dead
 
-    cmpltui t0, a0, 4 
-    beq t0, zero, alive_cell
+    ; IF cell is alive
+    cmpltui t0, a0, 2 ; has <2 neighbours
+    bne t0, zero, cell_dies
+
+    cmpgeui t0, a0, 4 ; has >=4 neighbours
+    bne t0, zero, cell_dies
+
+    jmpi end_fate
 
     dead_cell:
-        cmpeqi t0, a0, 3
-        beq t0, zero, end_fate
-        addi v0, zero, 1
+        cmpeqi t0, a0, 3 ; t0 = a0=3? (neighbours=3?)
+        beq t0, zero, end_fate ; Remain dead if not 3 neighbours
+        addi v0, zero, 1 ; Make alive if 3 neighbours 
         jmpi end_fate
 
-    alive_cell:
+    cell_dies:
         addi v0, zero, 0
 
     end_fate:
