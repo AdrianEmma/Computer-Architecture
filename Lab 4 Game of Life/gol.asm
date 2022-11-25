@@ -1112,15 +1112,18 @@ reset_game:
     stw t0, CURR_STEP(zero)
     
     ; Initialize step display
-    ldw t1, font_data(zero)
-    ldw t2, font_data+4(zero)
+    ldw t1, font_data(zero) ; font of digit 0
+    ldw t2, font_data+4(zero) ; font of digit 1
     stw t1, SEVEN_SEGS+4(zero)
     stw t1, SEVEN_SEGS+8(zero)
     stw t2, SEVEN_SEGS+12(zero)
     
-    ; Initialize seed
-    addi t0, zero, 0
-    stw t0, SEED(zero)
+    ; Initialize seed with value 0
+    stw zero, SEED(zero)
+    
+    ; Initialize GSA_ID to 0 to store SEED0
+    stw zero, GSA_ID(zero)
+    
     ; Initialize GSA with SEED0
     # Update GSA with new SEED
     addi t3, zero, N_GSA_LINES    
@@ -1142,6 +1145,7 @@ reset_game:
         ; New GSA line stored in memory
         
         bne t3, zero, loop_seed0
+
     ; Draw Seed0 on LEDS
     addi sp, sp, -4
     stw ra, 0(sp) ; PUSH ra
@@ -1149,12 +1153,11 @@ reset_game:
     ldw ra, 0(sp) ; POP ra
     addi sp, sp, 4
 
-    ; Initialize STATE and GSA_ID
-    addi t0, zero, 0
-    stw t0, CURR_STATE(zero)
-    stw t0, GSA_ID(zero)
-    ; Initialize PAUSE and SPEED
-    addi t0, zero, 1
+    ; Initialize STATE with 0
+    stw zero, CURR_STATE(zero)
+
+    ; Initialize PAUSE and SPEED with 1
+    addi t0, zero, 1 ;PAUSED=MIN_SPEED=1
     stw t0, PAUSE(zero)
     stw t0, SPEED(zero)
     ret
