@@ -46,6 +46,13 @@ main:
     addi a1, zero, 1 ; cell state
     call cell_fate
 
+    addi t0, zero, 2 ;RUN
+	stw t0, CURR_STATE(zero)
+	addi t0, zero, 3 ; 3 steps left
+	stw t0, CURR_STEP(zero)
+	call pause_game ; game paused
+	call decrement_step	
+
 main_algorithm:
     addi sp, zero, CUSTOM_VAR_END
     
@@ -1046,38 +1053,41 @@ decrement_step:
     ldw t1, PAUSE(zero); 1 if game is paused
     xori t1, t1, 0x1 ; 1 if game is running
     ldw t2, CURR_STEP(zero) ; store  value of steps
-        
-    cmpeqi t4, t0, RUN
-    and t4, t4, t1
-    bne t4, zero, run_step
+    
+
+    cmpeqi t4, t0, RUN ; t4= STATE=RUN?
+    and t4, t4, t1 ; STATE=RUN and GAME RUNNING
+    bne t4, zero, run_step; IF STATE=RUN and GAME RUNNING
 
     display: ; Display number of steps on 7SEG
+        ; Display unit digit
         andi t4, t2, 0xF
         srli t2, t2, 4
         slli t4, t4, 2
-        stw t5, font_data(t4)
-        ldw t5, SEVEN_SEGS+12(zero)
+        ldw t5, font_data(t4)
+        stw t5, SEVEN_SEGS+12(zero)
 
+        ; Display tens digit
         andi t4, t2, 0xF
         srli t2, t2, 4
         slli t4, t4, 2
-        stw t5, font_data(t4)
-        ldw t5, SEVEN_SEGS+8(zero)
+        ldw t5, font_data(t4)
+        stw t5, SEVEN_SEGS+8(zero)
 
-        
+        ; Display hundreds digit
         andi t4, t2, 0xF
         slli t4, t4, 2
-        stw t5, font_data(t4)
-        ldw t5, SEVEN_SEGS+4(zero)
+        ldw t5, font_data(t4)
+        stw t5, SEVEN_SEGS+4(zero)
 
         # Return value 0
         addi v0, zero, 0
 
-    jmpi endstep
+        jmpi endstep
 
     run_step:
-        cmpeqi t3, t2, 0
-        beq t3, zero, done
+        cmpeqi t3, t2, 0 ; t3= STEPS=0?
+        bne t3, zero, done
 
         addi t2, t2, -1
         stw t2, CURR_STEP(zero)
