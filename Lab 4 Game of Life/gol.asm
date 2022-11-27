@@ -27,7 +27,6 @@
     .equ MIN_SPEED, 1                   ; minimum speed
     .equ PAUSED, 0x00                   ; game paused value
     .equ RUNNING, 0x01                  ; game running value
-
 main:
     addi sp, zero, CUSTOM_VAR_END
     
@@ -66,6 +65,35 @@ main:
 
         jmpi main_loop
 
+test_find:
+	addi sp, zero, CUSTOM_VAR_END
+	
+	call reset_game
+	
+	addi a0, zero, 0
+	addi a1, zero, 4
+	call find_neighbours ; -> 1,0
+
+	addi a0, zero, 11
+	addi a1, zero, 2
+	call find_neighbours ; -> 2,0
+	
+	addi a0, zero, 11
+	addi a1, zero, 0
+	call find_neighbours ; -> 3, 1
+
+	addi a0, zero, 0
+	addi a1, zero, 7
+	call find_neighbours ; -> 2, 0
+
+    addi a0, zero, 2
+	addi a1, zero, 6
+	call find_neighbours ; -> 3, 1
+
+    addi a0, zero, 9
+	addi a1, zero, 6
+	call find_neighbours ; -> 0, 0
+
 test_gsa:
 	addi sp, zero, CUSTOM_VAR_END
 	
@@ -79,18 +107,12 @@ test_gsa:
 	
 	call draw_gsa
 
-test_find:
-	addi sp, zero, CUSTOM_VAR_END
-	
-	call reset_game
-	
-	addi a0, zero, 1
-	addi a1, zero, 6
-	call find_neighbours
-
 test_state:
 	call get_input
 	addi a0, v0, 0
+
+    addi t0, zero, 3
+    stw t0, SEED(zero)
 
     addi t0, zero, 0
 	stw t0, CURR_STATE(zero)
@@ -103,10 +125,10 @@ test_seedstepfate:
 	addi t0, zero, 1
 	stw t0, RANDOM_NUM(zero)
 
-    addi t0, zero, 3
+    addi t0, zero, 4
     stw t0, SEED(zero)
 
-    addi t0, zero, 1
+    addi t0, zero, 0
     stw t0, CURR_STATE(zero)
 
     call increment_seed
@@ -437,11 +459,8 @@ increment_seed:
     cmpeqi t1, t0, INIT # If case t1 = t0=INIT?
     beq t1, zero, random
     
-    # IF state INIT and SEED = N_SEEDS-1
-    ; =================================================================
-    addi t1, t2, 1 ; compute next possible seed >>> N_SEEDS issue #TODO
-    ; =================================================================
-    cmpeqi t1, t1, N_SEEDS ; t1 = SEED+1=N_SEEDS?
+    # IF state INIT and SEED >= N_SEEDS-1
+    cmpgei t1, t2, N_SEEDS-1 ; t1 = SEED >= N_SEEDS-1?
     bne t1, zero, random
 
     # IF state INIT
@@ -510,7 +529,7 @@ update_state:
     init_state:
         andi t3, a0, 1 ; obtain value of button 0
         ; ============================================================
-        cmpeqi t5, t5, N_SEEDS-1 ; b0 been pressed N_SEEDS-1 times (3) # TODO issue
+        cmpgei t5, t5, N_SEEDS-1 ; b0 been pressed more than N_SEEDS-1 times (3)
         ; ============================================================
         and t3, t3, t5 ; combine conditions
         bne t3, zero, change_state_rand
@@ -698,113 +717,123 @@ cell_fate:
 
 ; BEGIN:find_neighbours
 find_neighbours:
+    addi sp, sp, -8
+    stw a0, 4(sp) ; keep a copy of x-coordinate on stack
+    stw a1, 0(sp) ; keep a copy of y-coordinate on stack
+
+    ; Extract 3 GSA lines needed to operate on
+    ; line y-1 -> t0;  line y -> t1; line y+1 -> t2; 
+    
+    ; Obtain line above current location |> (y-1) mod 8
+    addi t0, a1, -1
+    andi a0, t0, N_GSA_LINES-1 ; y-1 mod 8 (and 7) as parameter
+    
+    addi sp, sp, -4
+    stw ra, 0(sp) ; PUSH ra
+    call get_gsa
+    ldw ra, 0(sp) ; POP ra
+    addi sp, sp, 4 
+    add t0, v0, zero ; Store line y-1 in t0
+
+    ; Obtain line in current location |> y - stored on stack at sp+0
+    ldw a0, 0(sp) 
+    addi sp, sp, -8
+    stw t0, 4(sp); PUSH t0 - ensure line is memorized
+    stw ra, 0(sp) ; PUSH ra
+    call get_gsa
+    ldw ra, 0(sp) ; POP ra
+    ldw t0, 4(sp) ; POP t0
+    addi sp, sp, 8 
+    add t1, v0, zero ; Store line y in t1
+    
+
+    ; Obtain line below current location |> (y+1) mod 8 
+    ldw a0, 0(sp)
+    addi a0, a0, 1
+    andi a0, a0, N_GSA_LINES-1 ; y+1 mod 8 (and 7)
+    
+    addi sp, sp, -12
+    stw t1, 8(sp) ; PUSH t1
+    stw t0, 4(sp) ; PUSH t0
+    stw ra, 0(sp) ; PUSH ra
+    call get_gsa
+    ldw ra, 0(sp) ; POP ra
+    ldw t0, 4(sp) ; POP t0
+    ldw t1, 8(sp) ; POP t1
+    addi sp, sp, 12 
+    add t2, v0, zero ; Store line y+1 in t2
+
     ; Compute index left and right of current cell
-    addi t0, a1, 1
-    andi t0, t0, N_GSA_LINES-1 ; y+1 mod 8 (and 7)
-    addi t2, a1, -1
-    andi t2, t2, N_GSA_LINES-1 ; y-1 mod 8 (and 7)
+    ldw a0, 4(sp)
+    addi t4, a0, 1
+    cmpgei t5, t4, N_GSA_COLUMNS
+    beq t5, zero, rightbounded
+    addi t4, t4, -12 
 
-    ; y-1->t2;  y->t1; y+1->t0; 
-    ; Compute index above and below of current cell
-    addi t3, a0, 1
-    cmpgei t1, t3, N_GSA_COLUMNS
-    beq t1, zero, bounded
-    addi t3, t3, -12 
-
-    bounded:
-        addi t4, a0, -1
-        cmplti t1, t4, 0
-        bne t1, zero, addition
+    rightbounded:
+        addi t3, a0, -1
+        cmplti t5, t3, 0
+        bne t5, zero, addition
 
     jmpi compute
 
     addition:
-        addi t4, t4, 12
+        addi t3, t3, 12
         jmpi compute
 
     compute:
-        ; Extract 3 GSA lines needed to operate on
-        add a0, t2, zero ; Obtain line y-1
-        addi sp, sp, -4
-        stw ra, 0(sp) ; PUSH ra
-        call get_gsa
-        ldw ra, 0(sp) ; POP ra
-        addi sp, sp, 4 
-        add t2, v0, zero ; Store line y-1 in t2
-
-        addi a0, t0, -1 ; Obtain line y
-        addi sp, sp, -8
-        stw t2, 4(sp); PUSH t2
-        stw ra, 0(sp) ; PUSH ra
-        call get_gsa
-        ldw ra, 0(sp) ; POP ra
-        ldw t2, 4(sp) ; POP t2
-        addi sp, sp, 8 
-        add t1, v0, zero ; Store line y in t1
-        
-        add a0, t0, zero ; Obtain line y+1
-        addi sp, sp, -12
-        stw t1, 8(sp) ; PUSH t1
-        stw t2, 4(sp) ; PUSH t2
-        stw ra, 0(sp) ; PUSH ra
-        call get_gsa
-        ldw ra, 0(sp) ; POP ra
-        ldw t2, 4(sp) ; POP t2
-        ldw t1, 8(sp) ; POP t1
-        addi sp, sp, 12 
-        add t0, v0, zero ; Store line y+1 in t0
 
         ; Initialize living neighbors counter
         addi t7, zero, 0
-        addi a0, t4, 1
 
         ; check({x,y-1})
-        srl t5, t2, a0
+        srl t5, t0, a0
         andi t5, t5, 0x1
         add t7, t7, t5
 
-        ; compute examined cell state
+        ; compute examined cell state - {x,y}
         srl t5, t1, a0
         andi t5, t5, 0x1
         add v1, zero, t5
 
         ; check({x,y+1})
-        srl t5, t0, a0
+        srl t5, t2, a0
         andi t5, t5, 0x1
         add t7, t7, t5
 
         ; check({x-1,y-1})
-        srl t5, t2, t4
+        srl t5, t0, t3
         andi t5, t5, 0x1
         add t7, t7, t5
         
         ; check({x-1,y})
-        srl t5, t1, t4
-        andi t5, t5, 0x1
-        add t7, t7, t5
-
-        ; check({x-1,y+1})
-        srl t5, t0, t4
-        andi t5, t5, 0x1
-        add t7, t7, t5
-
-        ; check({x+1,y-1})
-        srl t5, t2, t3
-        andi t5, t5, 0x1
-        add t7, t7, t5
-        
-        ; check({x+1,y})
         srl t5, t1, t3
         andi t5, t5, 0x1
         add t7, t7, t5
 
+        ; check({x-1,y+1})
+        srl t5, t2, t3
+        andi t5, t5, 0x1
+        add t7, t7, t5
+
+        ; check({x+1,y-1})
+        srl t5, t0, t4
+        andi t5, t5, 0x1
+        add t7, t7, t5
+        
+        ; check({x+1,y})
+        srl t5, t1, t4
+        andi t5, t5, 0x1
+        add t7, t7, t5
+
         ; check({x+1,y+1})
-        srl t5, t0, t3
+        srl t5, t2, t4
         andi t5, t5, 0x1
         add t7, t7, t5
 
     ; Return result in v0
     addi v0, t7, 0
+    addi sp, sp, 8 ; restore stack pointer
     ret
 ; END:find_neighbours
 
