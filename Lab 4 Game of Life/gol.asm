@@ -247,7 +247,7 @@ set_pixel:
 ; BEGIN:wait
 wait:
     addi t0, zero, 1 ;
-    slli t0, t0, 19 ; Initialize counter 2^19
+    slli t0, t0, 22; Initialize counter 2^19 - for fast run
 
     ldw t1, SPEED(zero) ; Load the game speed value
     
