@@ -1,0 +1,259 @@
+# Copyright (C) 1991-2007 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions
+# and other software and tools, and its AMPP partner logic
+# functions, and any output files from any of the foregoing
+# (including device programming or simulation files), and any
+# associated documentation or information are expressly subject
+# to the terms and conditions of the Altera Program License
+# Subscription Agreement, Altera MegaCore Function License
+# Agreement, or other applicable license agreement, including,
+# without limitation, that your use is for the sole purpose of
+# programming logic devices manufactured by Altera and sold by
+# Altera or its authorized distributors.  Please refer to the
+# applicable agreement for further details.
+
+
+# The default values for assignments are stored in the file
+#		system_assignment_defaults.qdf
+# If this file doesn't exist, and for assignments not listed, see file
+#		assignment_defaults.qdf
+
+# Altera recommends that you do not modify this file. This
+# file is updated automatically by the Quartus II software
+# and any changes you make may be lost or overwritten.
+
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE30F23C8
+set_global_assignment -name TOP_LEVEL_ENTITY GECKO
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 16.0.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "14:20:58  OCTOBER 03, 2017"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.0.0 Lite Edition"
+set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_palace
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
+set_global_assignment -name RESERVE_ASDO_AFTER_CONFIGURATION "AS INPUT TRI-STATED"
+set_global_assignment -name SMART_RECOMPILE OFF
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_NO_OUTPUT_GND "AS INPUT TRI-STATED"
+set_global_assignment -name ENABLE_SIGNALTAP OFF
+set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
+
+
+
+
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_location_assignment PIN_D6 -to row1[11]
+set_location_assignment PIN_F19 -to row1[10]
+set_location_assignment PIN_F10 -to row1[9]
+set_location_assignment PIN_K18 -to row1[8]
+set_location_assignment PIN_E10 -to row1[7]
+set_location_assignment PIN_G14 -to row1[6]
+set_location_assignment PIN_G15 -to row1[5]
+set_location_assignment PIN_G16 -to row1[4]
+set_location_assignment PIN_F14 -to row1[3]
+set_location_assignment PIN_J22 -to row1[2]
+set_location_assignment PIN_K21 -to row1[1]
+set_location_assignment PIN_D19 -to row1[0]
+set_location_assignment PIN_E5 -to row2[11]
+set_location_assignment PIN_F8 -to row2[10]
+set_location_assignment PIN_G10 -to row2[9]
+set_location_assignment PIN_F11 -to row2[8]
+set_location_assignment PIN_E9 -to row2[7]
+set_location_assignment PIN_J18 -to row2[6]
+set_location_assignment PIN_H14 -to row2[5]
+set_location_assignment PIN_H15 -to row2[4]
+set_location_assignment PIN_G17 -to row2[3]
+set_location_assignment PIN_J21 -to row2[2]
+set_location_assignment PIN_F15 -to row2[1]
+set_location_assignment PIN_F17 -to row2[0]
+set_location_assignment PIN_B5 -to row3[11]
+set_location_assignment PIN_G8 -to row3[10]
+set_location_assignment PIN_H10 -to row3[9]
+set_location_assignment PIN_E11 -to row3[8]
+set_location_assignment PIN_G7 -to row3[7]
+set_location_assignment PIN_G13 -to row3[6]
+set_location_assignment PIN_D10 -to row3[5]
+set_location_assignment PIN_J17 -to row3[4]
+set_location_assignment PIN_H16 -to row3[3]
+set_location_assignment PIN_H19 -to row3[2]
+set_location_assignment PIN_E15 -to row3[1]
+set_location_assignment PIN_D17 -to row3[0]
+set_location_assignment PIN_C4 -to row4[11]
+set_location_assignment PIN_E7 -to row4[10]
+set_location_assignment PIN_G9 -to row4[9]
+set_location_assignment PIN_H11 -to row4[8]
+set_location_assignment PIN_F7 -to row4[7]
+set_location_assignment PIN_K17 -to row4[6]
+set_location_assignment PIN_F9 -to row4[5]
+set_location_assignment PIN_E12 -to row4[4]
+set_location_assignment PIN_E13 -to row4[3]
+set_location_assignment PIN_H17 -to row4[2]
+set_location_assignment PIN_D15 -to row4[1]
+set_location_assignment PIN_K22 -to row4[0]
+set_location_assignment PIN_A4 -to row5[11]
+set_location_assignment PIN_C7 -to row5[10]
+set_location_assignment PIN_A8 -to row5[9]
+set_location_assignment PIN_A10 -to row5[8]
+set_location_assignment PIN_A14 -to row5[7]
+set_location_assignment PIN_A16 -to row5[6]
+set_location_assignment PIN_A18 -to row5[5]
+set_location_assignment PIN_B20 -to row5[4]
+set_location_assignment PIN_B22 -to row5[3]
+set_location_assignment PIN_E22 -to row5[2]
+set_location_assignment PIN_H21 -to row5[1]
+set_location_assignment PIN_L21 -to row5[0]
+set_location_assignment PIN_C3 -to row6[11]
+set_location_assignment PIN_A5 -to row6[10]
+set_location_assignment PIN_B7 -to row6[9]
+set_location_assignment PIN_B9 -to row6[8]
+set_location_assignment PIN_C13 -to row6[7]
+set_location_assignment PIN_C15 -to row6[6]
+set_location_assignment PIN_C17 -to row6[5]
+set_location_assignment PIN_C19 -to row6[4]
+set_location_assignment PIN_A20 -to row6[3]
+set_location_assignment PIN_D20 -to row6[2]
+set_location_assignment PIN_F20 -to row6[1]
+set_location_assignment PIN_F16 -to row6[0]
+set_location_assignment PIN_B3 -to row7[11]
+set_location_assignment PIN_C6 -to row7[10]
+set_location_assignment PIN_A7 -to row7[9]
+set_location_assignment PIN_A9 -to row7[8]
+set_location_assignment PIN_B13 -to row7[7]
+set_location_assignment PIN_B15 -to row7[6]
+set_location_assignment PIN_B17 -to row7[5]
+set_location_assignment PIN_B19 -to row7[4]
+set_location_assignment PIN_C21 -to row7[3]
+set_location_assignment PIN_D21 -to row7[2]
+set_location_assignment PIN_F22 -to row7[1]
+set_location_assignment PIN_E16 -to row7[0]
+set_location_assignment PIN_A3 -to row8[11]
+set_location_assignment PIN_B6 -to row8[10]
+set_location_assignment PIN_C8 -to row8[9]
+set_location_assignment PIN_C10 -to row8[8]
+set_location_assignment PIN_A13 -to row8[7]
+set_location_assignment PIN_A15 -to row8[6]
+set_location_assignment PIN_A17 -to row8[5]
+set_location_assignment PIN_A19 -to row8[4]
+set_location_assignment PIN_B21 -to row8[3]
+set_location_assignment PIN_D22 -to row8[2]
+set_location_assignment PIN_F21 -to row8[1]
+set_location_assignment PIN_L22 -to row8[0]
+set_location_assignment PIN_B4 -to row9[11]
+set_location_assignment PIN_A6 -to row9[10]
+set_location_assignment PIN_B8 -to row9[9]
+set_location_assignment PIN_B10 -to row9[8]
+set_location_assignment PIN_B14 -to row9[7]
+set_location_assignment PIN_B16 -to row9[6]
+set_location_assignment PIN_B18 -to row9[5]
+set_location_assignment PIN_C20 -to row9[4]
+set_location_assignment PIN_C22 -to row9[3]
+set_location_assignment PIN_E21 -to row9[2]
+set_location_assignment PIN_H22 -to row9[1]
+set_location_assignment PIN_H20 -to row9[0]
+set_location_assignment PIN_N5 -to SDRAM_addr[0]
+set_location_assignment PIN_N6 -to SDRAM_addr[1]
+set_location_assignment PIN_P4 -to SDRAM_addr[2]
+set_location_assignment PIN_P5 -to SDRAM_addr[3]
+set_location_assignment PIN_W6 -to SDRAM_addr[4]
+set_location_assignment PIN_V7 -to SDRAM_addr[5]
+set_location_assignment PIN_V6 -to SDRAM_addr[6]
+set_location_assignment PIN_V5 -to SDRAM_addr[7]
+set_location_assignment PIN_V1 -to SDRAM_addr[8]
+set_location_assignment PIN_V4 -to SDRAM_addr[9]
+set_location_assignment PIN_U2 -to SDRAM_addr[10]
+set_location_assignment PIN_U8 -to SDRAM_addr[11]
+set_location_assignment PIN_V2 -to SDRAM_addr[12]
+set_location_assignment PIN_M6 -to SDRAM_BA[0]
+set_location_assignment PIN_M7 -to SDRAM_BA[1]
+set_location_assignment PIN_M1 -to SDRAM_D[0]
+set_location_assignment PIN_M2 -to SDRAM_D[1]
+set_location_assignment PIN_M3 -to SDRAM_D[2]
+set_location_assignment PIN_N1 -to SDRAM_D[3]
+set_location_assignment PIN_N2 -to SDRAM_D[4]
+set_location_assignment PIN_P1 -to SDRAM_D[5]
+set_location_assignment PIN_P2 -to SDRAM_D[6]
+set_location_assignment PIN_P3 -to SDRAM_D[7]
+set_location_assignment PIN_W1 -to SDRAM_D[8]
+set_location_assignment PIN_W2 -to SDRAM_D[9]
+set_location_assignment PIN_Y1 -to SDRAM_D[10]
+set_location_assignment PIN_Y2 -to SDRAM_D[11]
+set_location_assignment PIN_Y3 -to SDRAM_D[12]
+set_location_assignment PIN_AA1 -to SDRAM_D[13]
+set_location_assignment PIN_AB3 -to SDRAM_D[14]
+set_location_assignment PIN_AA4 -to SDRAM_D[15]
+set_location_assignment PIN_R1 -to SDRAM_DQM[0]
+set_location_assignment PIN_V3 -to SDRAM_DQM[1]
+set_location_assignment PIN_U7 -to SDRAM_CKE
+set_location_assignment PIN_AA3 -to SDRAM_CLK
+set_location_assignment PIN_M5 -to SDRAM_N_CAS
+set_location_assignment PIN_M4 -to SDRAM_N_RAS
+set_location_assignment PIN_U1 -to SDRAM_N_CS
+set_location_assignment PIN_R2 -to SDRAM_N_WE
+set_location_assignment PIN_G22 -to BUTTONS[4]
+set_location_assignment PIN_AA11 -to BUTTONS[5]
+set_location_assignment PIN_AB11 -to BUTTONS[6]
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_COLOR 2147039 -section_id Top
+set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
+set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_location_assignment PIN_AB11 -to reset_n
+set_location_assignment PIN_T1 -to clk
+set_location_assignment PIN_B11 -to IN_BUTTONS[0]
+set_location_assignment PIN_A11 -to IN_BUTTONS[1]
+set_location_assignment PIN_B12 -to IN_BUTTONS[2]
+set_location_assignment PIN_A12 -to IN_BUTTONS[3]
+set_global_assignment -name CROSS_BOUNDARY_OPTIMIZATIONS ON -section_id Top
+set_global_assignment -name QXP_FILE "decoder-decoder_0.qxp"
+set_global_assignment -name QXP_FILE "CPU-inst.qxp"
+set_global_assignment -name SDC_FILE GECKO.sdc
+set_global_assignment -name HEX_FILE ROM.hex
+set_global_assignment -name BDF_FILE GECKO.bdf
+set_global_assignment -name VHDL_FILE ../vhdl/buttons.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/LEDs.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/RAM.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/ROM.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/ROM_Block.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/RAM_obfuscated.vhd
+set_global_assignment -name VHDL_FILE ../vhdl/ROM_obfuscated.vhd
+set_location_assignment PIN_T3 -to seg_out[31]
+set_global_assignment -name VHDL_FILE ../vhdl/seven_seg.vhd
+set_location_assignment PIN_R6 -to seg_out[30]
+set_location_assignment PIN_R5 -to seg_out[29]
+set_location_assignment PIN_P7 -to seg_out[28]
+set_location_assignment PIN_N8 -to seg_out[27]
+set_location_assignment PIN_N7 -to seg_out[26]
+set_location_assignment PIN_F13 -to seg_out[25]
+set_location_assignment PIN_P6 -to seg_out[24]
+set_location_assignment PIN_K19 -to seg_out[23]
+set_location_assignment PIN_T9 -to seg_out[22]
+set_location_assignment PIN_E14 -to seg_out[21]
+set_location_assignment PIN_T5 -to seg_out[20]
+set_location_assignment PIN_T7 -to seg_out[19]
+set_location_assignment PIN_R7 -to seg_out[18]
+set_location_assignment PIN_T4 -to seg_out[17]
+set_location_assignment PIN_T8 -to seg_out[16]
+set_location_assignment PIN_U9 -to seg_out[15]
+set_location_assignment PIN_W8 -to seg_out[14]
+set_location_assignment PIN_V8 -to seg_out[13]
+set_location_assignment PIN_Y4 -to seg_out[12]
+set_location_assignment PIN_T11 -to seg_out[11]
+set_location_assignment PIN_Y10 -to seg_out[10]
+set_location_assignment PIN_T10 -to seg_out[9]
+set_location_assignment PIN_W7 -to seg_out[8]
+set_location_assignment PIN_U11 -to seg_out[7]
+set_location_assignment PIN_G18 -to seg_out[6]
+set_location_assignment PIN_M8 -to seg_out[5]
+set_location_assignment PIN_L6 -to seg_out[4]
+set_location_assignment PIN_W10 -to seg_out[3]
+set_location_assignment PIN_U10 -to seg_out[2]
+set_location_assignment PIN_V9 -to seg_out[1]
+set_location_assignment PIN_L7 -to seg_out[0]
+set_location_assignment PIN_G22 -to IN_BUTTONS[4]
+set_global_assignment -name VHDL_FILE ../vhdl/randgen.vhd
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
